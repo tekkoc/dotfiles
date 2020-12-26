@@ -1,0 +1,8 @@
+# vim: filetype=fish
+
+alias g git
+alias gcd "cd (ghq root)/(ghq list | fzf-tmux)"
+
+. $HOME/.fishenv
+
+starship init fish | source

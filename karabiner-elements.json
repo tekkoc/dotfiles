@@ -1,0 +1,195 @@
+{
+  "title": "self setting",
+  "rules": [
+    {
+      "description": "eisuu in Kinesis Advantage2",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "caps_lock"
+          },
+          "to": [
+            {
+              "key_code": "japanese_eisuu"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "vendor_id": 10730,
+                  "product_id": 258
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "command in Kinesis Advantage2",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command"
+          },
+          "to": [
+            {
+              "key_code": "left_command"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_if",
+              "identifiers": [
+                {
+                  "vendor_id": 10730,
+                  "product_id": 258
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "eisuu in Other Keyboard",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "caps_lock"
+          },
+          "to": [
+            {
+              "key_code": "left_control"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 10730,
+                  "product_id": 258
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "command in Other Keyboard",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command"
+          },
+          "to": [
+            {
+              "key_code": "japanese_kana"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "vendor_id": 10730,
+                  "product_id": 258
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "C-h sends BS",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "C-l sends ESC EISU",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "escape"
+            },
+            {
+              "key_code": "japanese_eisuu"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.apple\\.Terminal$"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "C-l sends C-l EISU (on turminal)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "l",
+              "modifiers": ["control"]
+            },
+            {
+              "key_code": "japanese_eisuu"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.apple\\.Terminal$"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
