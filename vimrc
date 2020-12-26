@@ -1,14 +1,9 @@
 call plug#begin('~/.vim/plugged')
 
 " テーマ
-Plug 'w0ng/vim-hybrid'
+Plug 'cocopon/iceberg.vim'
 
 call plug#end()
-
-  let g:hybrid_custom_term_colors = 1
-  let g:hybrid_reduced_contrast = 1
-  colorscheme hybrid
-  set background=dark
 
 syntax on
 filetype plugin indent on
@@ -102,15 +97,13 @@ nnoremap <Space>d cc<ESC>
 command! Ev edit ~/.vimrc
 command! Rv source ~/.vimrc
 
-function! s:hasPlugin(name)
+function! HasPlugin(name)
   return globpath(&runtimepath, 'plugin/' . a:name . '.vim') !=# ''
         \   || globpath(&runtimepath, 'autoload/' . a:name . '.vim') !=# ''
         \   || globpath(&runtimepath, 'colors/' . a:name . '.vim') !=# ''
 endfunction
 
-if s:hasPlugin('hybrid')
-  let g:hybrid_custom_term_colors = 1
-  let g:hybrid_reduced_contrast = 1
-  colorscheme hybrid
+if HasPlugin('iceberg')
+  colorscheme iceberg
   set background=dark
 endif
