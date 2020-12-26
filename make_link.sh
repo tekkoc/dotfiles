@@ -12,6 +12,8 @@ if [ ! -e ~/.hammerspoon ] ; then
   mkdir ~/.hammerspoon
 fi
 
+ln -sf `pwd`/vimrc ~/.vimrc
+
 ln -sf `pwd`/fishrc ~/.config/fish/config.fish
 ln -sf `pwd`/tmux.conf ~/.tmux.conf
 
