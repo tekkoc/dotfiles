@@ -38,6 +38,12 @@ set softtabstop=2
 set autoindent
 set smartindent
 
+" 検索設定
+set ignorecase
+set smartcase
+set wrapscan
+set incsearch
+
 " ヤンクしたものをクリップボードにも
 set clipboard=unnamed
 
