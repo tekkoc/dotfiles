@@ -8,11 +8,17 @@ if [ ! -e ~/.config/fish ] ; then
   mkdir ~/.config/fish
 fi
 
+if [ ! -e ~/.config/nvim ] ; then
+  mkdir ~/.config/nvim
+fi
+
 if [ ! -e ~/.hammerspoon ] ; then
   mkdir ~/.hammerspoon
 fi
 
 ln -sf `pwd`/vimrc ~/.vimrc
+
+ln -sf `pwd`/nvimrc ~/.config/nvim/init.vim
 
 ln -sf `pwd`/fishrc ~/.config/fish/config.fish
 ln -sf `pwd`/tmux.conf ~/.tmux.conf
