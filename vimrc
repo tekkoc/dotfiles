@@ -30,6 +30,14 @@ set scrolloff=999
 set number
 set relativenumber
 
+" タブ・インデント設定
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set autoindent
+set smartindent
+
 " ヤンクしたものをクリップボードにも
 set clipboard=unnamed
 
