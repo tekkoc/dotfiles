@@ -3,6 +3,10 @@ call plug#begin('~/.vim/plugged')
 " テーマ
 Plug 'cocopon/iceberg.vim'
 
+" ファジーファインダー
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
+
 call plug#end()
 
 syntax on
@@ -30,6 +34,8 @@ set clipboard=unnamed
 " コロンとセミコロンを入れ替え
 noremap : ;
 noremap ; :
+
+let mapleader =","
 
 " <C-l>でEscする
 vnoremap <C-l> <Esc>
@@ -100,10 +106,15 @@ command! Rv source ~/.vimrc
 function! HasPlugin(name)
   return globpath(&runtimepath, 'plugin/' . a:name . '.vim') !=# ''
         \   || globpath(&runtimepath, 'autoload/' . a:name . '.vim') !=# ''
+        \   || globpath(&runtimepath, 'plugged/' . a:name . '.vim') !=# ''
         \   || globpath(&runtimepath, 'colors/' . a:name . '.vim') !=# ''
 endfunction
 
 if HasPlugin('iceberg')
   colorscheme iceberg
   set background=dark
+endif
+
+if HasPlugin('fzf-preview')
+  nnoremap <silent> <leader>ff :<C-u>FzfPreviewProjectFiles<CR>
 endif
