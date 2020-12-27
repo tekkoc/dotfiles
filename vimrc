@@ -3,6 +3,8 @@ call plug#begin('~/.vim/plugged')
 " テーマ
 Plug 'cocopon/iceberg.vim'
 
+Plug 'mattn/vim-findroot'
+
 " ファジーファインダー
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
@@ -117,4 +119,19 @@ endif
 
 if HasPlugin('fzf-preview')
   nnoremap <silent> <leader>ff :<C-u>FzfPreviewProjectFiles<CR>
+endif
+
+if HasPlugin('findroot')
+  let g:findroot_patterns = [
+  \  '.git/',
+  \  '.svn/',
+  \  '.hg/',
+  \  '.bzr/',
+  \  '.gitignore',
+  \  'Rakefile',
+  \  'pom.xml',
+  \  'project.clj',
+  \  '*.csproj',
+  \  '*.sln',
+  \]
 endif
