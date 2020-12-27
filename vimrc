@@ -116,8 +116,8 @@ nnoremap <CR> o<Esc>
 nnoremap <Space>d cc<ESC>
 
 " vimrc の編集・リロード
-command! Ev edit ~/.vimrc
-command! Rv source ~/.vimrc
+nnoremap <silent> <Space>. :<C-u>edit ~/.vimrc<CR>
+command! Reload source ~/.vimrc
 
 function! HasPlugin(name)
   return globpath(&runtimepath, 'plugin/' . a:name . '.vim') !=# ''
