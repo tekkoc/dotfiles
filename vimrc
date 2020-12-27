@@ -145,7 +145,9 @@ if HasPlugin('iceberg')
 endif
 
 if HasPlugin('fzf-preview')
-  nnoremap <silent> <leader>ff :<C-u>FzfPreviewProjectFiles<CR>
+  " unite を使っていた名残で u をprefix に
+  nnoremap <silent> <leader>uf :<C-u>FzfPreviewProjectFiles<CR>
+  nnoremap <silent> <leader>um :<C-u>:FzfPreviewMruFiles<CR>
 endif
 
 if HasPlugin('findroot')
