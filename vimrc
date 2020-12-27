@@ -9,6 +9,18 @@ Plug 'mattn/vim-findroot'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 
+" textobj
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-line'
+
+" operator
+Plug 'kana/vim-operator-user'
+Plug 'tyru/operator-camelize.vim'
+Plug 'kana/vim-operator-replace'
+Plug 'emonkak/vim-operator-comment'
+
 call plug#end()
 
 syntax on
@@ -123,6 +135,7 @@ function! HasPlugin(name)
   return globpath(&runtimepath, 'plugin/' . a:name . '.vim') !=# ''
         \   || globpath(&runtimepath, 'autoload/' . a:name . '.vim') !=# ''
         \   || globpath(&runtimepath, 'plugged/' . a:name . '.vim') !=# ''
+        \   || globpath(&runtimepath, 'plugged/' . a:name) !=# ''
         \   || globpath(&runtimepath, 'colors/' . a:name . '.vim') !=# ''
 endfunction
 
@@ -148,4 +161,19 @@ if HasPlugin('findroot')
   \  '*.csproj',
   \  '*.sln',
   \]
+endif
+
+if HasPlugin('vim-operator-user')
+  " コメント
+  map C <Plug>(operator-comment)
+  map X <Plug>(operator-uncomment)
+  set commentstring=//%s
+
+  " camelize
+  map <Leader>c <Plug>(operator-camelize)
+  map <Leader>C <Plug>(operator-decamelize)
+
+  " 置換
+  vmap p <Plug>(operator-replace)
+  map R <Plug>(operator-replace)
 endif
