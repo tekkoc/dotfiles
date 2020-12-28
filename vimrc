@@ -50,6 +50,13 @@ filetype plugin indent on
 " 自動再読み込み
 set autoread
 
+set hidden
+
+" 改行文字などの表示
+set list
+set listchars=tab:¦\ ,eol:↴,trail:-,nbsp:%,extends:>,precedes:<
+set fillchars=vert:\ ,fold:\ ,diff:\
+
 " 各種ファイルを生成しない
 set nobackup
 set nowritebackup
