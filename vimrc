@@ -30,6 +30,9 @@ Plug 'sheerun/vim-polyglot'
 " status line
 Plug 'itchyny/lightline.vim'
 
+" linter
+Plug 'dense-analysis/ale'
+
 call plug#end()
 
 syntax on
@@ -214,4 +217,11 @@ if HasPlugin('lightline')
   let g:lightline = {
         \ 'colorscheme': 'iceberg'
         \ }
+endif
+
+if HasPlugin('ale')
+  let g:ale_fix_on_save = 1
+  let g:ale_fixers = {
+        \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+        \}
 endif
