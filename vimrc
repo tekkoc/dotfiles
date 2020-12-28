@@ -27,6 +27,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " ハイライト
 Plug 'sheerun/vim-polyglot'
 
+" status line
+Plug 'itchyny/lightline.vim'
+
 call plug#end()
 
 syntax on
@@ -64,7 +67,6 @@ set incsearch
 
 " ヤンクしたものをクリップボードにも
 set clipboard=unnamed
-
 
 " コロンとセミコロンを入れ替え
 noremap : ;
@@ -206,4 +208,10 @@ if HasPlugin('coc.nvim')
 
   " Highlight the symbol and its references when holding the cursor.
   autocmd CursorHold * silent call CocActionAsync('highlight')
+endif
+
+if HasPlugin('lightline')
+  let g:lightline = {
+        \ 'colorscheme': 'iceberg'
+        \ }
 endif
