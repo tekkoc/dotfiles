@@ -21,6 +21,9 @@ Plug 'tyru/operator-camelize.vim'
 Plug 'kana/vim-operator-replace'
 Plug 'emonkak/vim-operator-comment'
 
+" LSP
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 call plug#end()
 
 syntax on
@@ -58,6 +61,7 @@ set incsearch
 
 " ヤンクしたものをクリップボードにも
 set clipboard=unnamed
+
 
 " コロンとセミコロンを入れ替え
 noremap : ;
@@ -147,7 +151,7 @@ endif
 if HasPlugin('fzf-preview')
   " unite を使っていた名残で u をprefix に
   nnoremap <silent> <leader>uf :<C-u>FzfPreviewProjectFiles<CR>
-  nnoremap <silent> <leader>um :<C-u>:FzfPreviewMruFiles<CR>
+  nnoremap <silent> <leader>um :<C-u>FzfPreviewMruFiles<CR>
 endif
 
 if HasPlugin('findroot')
@@ -178,4 +182,25 @@ if HasPlugin('vim-operator-user')
   " 置換
   vmap p <Plug>(operator-replace)
   map R <Plug>(operator-replace)
+endif
+
+function! CocInstall()
+  CocInstall coc-json
+  CocInstall coc-tsserver
+  CocInstall coc-eslint
+endfunction
+
+if HasPlugin('coc.nvim')
+  " enter で選択
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                                \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+  " GoTo code navigation.
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+
+  " Highlight the symbol and its references when holding the cursor.
+  autocmd CursorHold * silent call CocActionAsync('highlight')
 endif
