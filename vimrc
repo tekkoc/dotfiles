@@ -33,6 +33,15 @@ Plug 'itchyny/lightline.vim'
 " linter
 Plug 'dense-analysis/ale'
 
+" gitで差分がある行の表示
+Plug 'mhinz/vim-signify'
+
+" インサートモード時に行を反転
+Plug 'cohama/vim-insert-linenr'
+
+" コマンドライン補完
+Plug 'thinca/vim-ambicmd'
+
 call plug#end()
 
 syntax on
@@ -224,4 +233,9 @@ if HasPlugin('ale')
   let g:ale_fixers = {
         \ '*': ['remove_trailing_lines', 'trim_whitespace'],
         \}
+endif
+
+if HasPlugin('ambicmd')
+  cnoremap <expr> <Space> ambicmd#expand("\<Space>")
+  cnoremap <expr> <CR>    ambicmd#expand("\<CR>")
 endif
