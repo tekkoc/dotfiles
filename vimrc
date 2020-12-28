@@ -24,6 +24,9 @@ Plug 'emonkak/vim-operator-comment'
 " LSP
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" ハイライト
+Plug 'sheerun/vim-polyglot'
+
 call plug#end()
 
 syntax on
