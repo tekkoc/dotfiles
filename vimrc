@@ -84,12 +84,12 @@ cnoremap <C-l> <C-c>
 nnoremap <C-l> <Esc>
 
 " シフトで多めに移動
-nnoremap <silent> J 20j
-nnoremap <silent> K 20k
+nnoremap <silent> J 10j
+nnoremap <silent> K 10k
 nnoremap <silent> L 10l
 nnoremap <silent> H 10h
-vnoremap J 20j
-vnoremap K 20k
+vnoremap J 10j
+vnoremap K 10k
 vnoremap L 10l
 vnoremap H 10h
 
