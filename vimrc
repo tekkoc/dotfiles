@@ -169,6 +169,9 @@ nnoremap <Space>d cc<ESC>
 nnoremap <silent> <Space>. :<C-u>edit ~/.vimrc<CR>
 command! Reload source ~/.vimrc
 
+command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
+command! Memo edit ~/Dropbox/inbox.md
+
 function! HasPlugin(name)
   return globpath(&runtimepath, 'plugin/' . a:name . '.vim') !=# ''
         \   || globpath(&runtimepath, 'autoload/' . a:name . '.vim') !=# ''
