@@ -42,7 +42,17 @@ Plug 'cohama/vim-insert-linenr'
 " コマンドライン補完
 Plug 'thinca/vim-ambicmd'
 
+" git
+Plug 'tpope/vim-fugitive'
+
 call plug#end()
+
+function! CocInstall()
+  CocInstall coc-json
+  CocInstall coc-tsserver
+  CocInstall coc-eslint
+  CocInstall coc-fzf-preview
+endfunction
 
 syntax on
 filetype plugin indent on
@@ -173,9 +183,17 @@ if HasPlugin('iceberg')
 endif
 
 if HasPlugin('fzf-preview')
+  set shell=/bin/zsh
+  let $SHELL = "/bin/zsh"
+
   " unite を使っていた名残で u をprefix に
-  nnoremap <silent> <leader>uf :<C-u>FzfPreviewProjectFiles<CR>
-  nnoremap <silent> <leader>um :<C-u>FzfPreviewMruFiles<CR>
+  nnoremap <silent> <leader>uf :<C-u>CocCommand fzf-preview.ProjectFiles<CR>
+  nnoremap <silent> <leader>um :<C-u>CocCommand fzf-preview.ProjectMruFiles<CR>
+  nnoremap <silent> <leader>uM :<C-u>CocCommand fzf-preview.MruFiles<CR>
+  nnoremap <silent> <leader>ug :<C-u>CocCommand fzf-preview.ProjectGrep
+
+  " git系
+  nnoremap <silent> <leader>gs :<C-u>CocCommand fzf-preview.GitStatus
 endif
 
 if HasPlugin('findroot')
@@ -207,12 +225,6 @@ if HasPlugin('vim-operator-user')
   vmap p <Plug>(operator-replace)
   map R <Plug>(operator-replace)
 endif
-
-function! CocInstall()
-  CocInstall coc-json
-  CocInstall coc-tsserver
-  CocInstall coc-eslint
-endfunction
 
 if HasPlugin('coc.nvim')
   " enter で選択
