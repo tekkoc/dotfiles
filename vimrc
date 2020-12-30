@@ -169,8 +169,23 @@ nnoremap <Space>d cc<ESC>
 nnoremap <silent> <Space>. :<C-u>edit ~/.vimrc<CR>
 command! Reload source ~/.vimrc
 
+" メモファイル
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
 command! Memo edit ~/Dropbox/inbox.md
+
+" TODOの挿入・トグル
+function! ToggleCheckbox()
+  let l:line = getline('.')
+  if l:line =~ '^\-\s\[\s\]'
+    let l:result = substitute(l:line, '^-\s\[\s\]', '- [x]', '')
+    call setline('.', l:result)
+  elseif l:line =~ '^\-\s\[x\]'
+    let l:result = substitute(l:line, '^-\s\[x\]', '- [ ]', '')
+    call setline('.', l:result)
+  end
+endfunction
+nnoremap <Leader>ti I- [ ]
+nnoremap <Leader>tt :call ToggleCheckbox()<CR>
 
 function! HasPlugin(name)
   return globpath(&runtimepath, 'plugin/' . a:name . '.vim') !=# ''
