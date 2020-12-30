@@ -48,6 +48,10 @@ Plug 'thinca/vim-ambicmd'
 " git
 Plug 'tpope/vim-fugitive'
 
+" quickrun
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'thinca/vim-quickrun'
+
 " 言語系
 Plug 'rust-lang/rust.vim'
 
@@ -303,4 +307,16 @@ endif
 if HasPlugin('rust')
   let g:rustfmt_autosave = 1
   let g:rust_clip_command = 'pbcopy'
+endif
+
+if HasPlugin('vim-quickrun')
+  let g:quickrun_config = {
+  \   "_" : {
+  \     "outputter/buffer/split" : ":botright",
+  \     "runner" : "vimproc"
+  \   },
+  \   'rust': {
+  \     'exec' : 'cargo run'
+  \   },
+  \}
 endif
