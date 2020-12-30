@@ -9,6 +9,9 @@ Plug 'mattn/vim-findroot'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 
+" 括弧系の自動挿入
+Plug 'jiangmiao/auto-pairs'
+
 " textobj
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
