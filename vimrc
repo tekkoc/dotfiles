@@ -169,8 +169,12 @@ nnoremap <CR> o<Esc>
 nnoremap <Space>d cc<ESC>
 
 " vimrc の編集・リロード
-nnoremap <silent> <Space>. :<C-u>edit ~/.vimrc<CR>
-command! Reload source ~/.vimrc
+nnoremap <silent> <Space>.. :<C-u>edit ~/.vimrc<CR>
+nnoremap <silent> <Space>.e :<C-u>edit ~/.vimrc<CR>
+nnoremap <silent> <Space>.s :<C-u>split ~/.vimrc<CR>
+nnoremap <silent> <Space>.v :<C-u>vsplit ~/.vimrc<CR>
+nnoremap <silent> <Space>.r :<C-u>source ~/.vimrc<CR>
+nnoremap <silent> <Space>.i :<C-u>PlugInstall<CR>
 
 " メモファイル
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
