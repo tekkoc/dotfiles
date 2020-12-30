@@ -215,10 +215,11 @@ if HasPlugin('fzf-preview')
   nnoremap <silent> <leader>uf :<C-u>CocCommand fzf-preview.ProjectFiles<CR>
   nnoremap <silent> <leader>um :<C-u>CocCommand fzf-preview.ProjectMruFiles<CR>
   nnoremap <silent> <leader>uM :<C-u>CocCommand fzf-preview.MruFiles<CR>
-  nnoremap <silent> <leader>ug :<C-u>CocCommand fzf-preview.ProjectGrep
+  nnoremap <silent> <leader>ug :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
 
   " git系
   nnoremap <silent> <leader>gs :<C-u>CocCommand fzf-preview.GitStatus<CR>
+  nnoremap <silent> <leader>ga :<C-u>CocCommand fzf-preview.GitActions<CR>
 endif
 
 if HasPlugin('findroot')
