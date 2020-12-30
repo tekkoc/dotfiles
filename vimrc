@@ -230,6 +230,8 @@ if HasPlugin('fzf-preview')
   " git系
   nnoremap <silent> <leader>gs :<C-u>CocCommand fzf-preview.GitStatus<CR>
   nnoremap <silent> <leader>ga :<C-u>CocCommand fzf-preview.GitActions<CR>
+  nnoremap <silent> <leader>gb :<C-u>CocCommand fzf-preview.GitBranches<CR>
+  nnoremap <silent> <leader>gl :<C-u>CocCommand fzf-preview.GitLogs<CR>
 endif
 
 if HasPlugin('findroot')
