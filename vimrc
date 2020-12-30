@@ -48,6 +48,9 @@ Plug 'thinca/vim-ambicmd'
 " git
 Plug 'tpope/vim-fugitive'
 
+" 言語系
+Plug 'rust-lang/rust.vim'
+
 call plug#end()
 
 function! CocInstall()
@@ -295,4 +298,9 @@ endif
 if HasPlugin('ambicmd')
   cnoremap <expr> <Space> ambicmd#expand("\<Space>")
   cnoremap <expr> <CR>    ambicmd#expand("\<CR>")
+endif
+
+if HasPlugin('rust')
+  let g:rustfmt_autosave = 1
+  let g:rust_clip_command = 'pbcopy'
 endif
