@@ -214,7 +214,7 @@ if HasPlugin('fzf-preview')
   nnoremap <silent> <leader>ug :<C-u>CocCommand fzf-preview.ProjectGrep
 
   " git系
-  nnoremap <silent> <leader>gs :<C-u>CocCommand fzf-preview.GitStatus
+  nnoremap <silent> <leader>gs :<C-u>CocCommand fzf-preview.GitStatus<CR>
 endif
 
 if HasPlugin('findroot')
