@@ -194,6 +194,16 @@ endfunction
 nnoremap <Leader>ti I- [ ]
 nnoremap <Leader>tt :call ToggleCheckbox()<CR>
 
+command! -nargs=? Jq call s:Jq(<f-args>)
+function! s:Jq(...)
+  if 0 == a:0
+    let l:arg = "."
+  else
+    let l:arg = a:1
+  endif
+  execute "%! cat % | jq \"" . l:arg . "\""
+endfunction
+
 function! HasPlugin(name)
   return globpath(&runtimepath, 'plugin/' . a:name . '.vim') !=# ''
         \   || globpath(&runtimepath, 'autoload/' . a:name . '.vim') !=# ''
