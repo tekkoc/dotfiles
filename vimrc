@@ -185,7 +185,7 @@ nnoremap <silent> <Space>.i :<C-u>PlugInstall<CR>
 
 " メモファイル
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
-command! Memo edit ~/Dropbox/inbox.md
+command! Memo edit ~/dev/src/github.com/tekkoc/my_memo/inbox.md
 
 " TODOの挿入・トグル
 function! ToggleCheckbox()
