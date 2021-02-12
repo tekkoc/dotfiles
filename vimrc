@@ -55,6 +55,12 @@ Plug 'thinca/vim-quickrun'
 " 言語系
 Plug 'rust-lang/rust.vim'
 
+Plug 'editorconfig/editorconfig-vim'
+
+Plug 'nathanaelkane/vim-indent-guides'
+
+Plug 'junegunn/vim-easy-align'
+
 call plug#end()
 
 function! CocInstall()
@@ -321,3 +327,13 @@ if HasPlugin('vim-quickrun')
   \   },
   \}
 endif
+
+set iskeyword+=$
+
+let g:indent_guides_enable_on_vim_startup = 1
+
+" ファイルをひらいたときに最後にカーソルがあった場所に移動する
+augroup vimrcEx
+  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
+  \ exe "normal g`\"" | endif
+augroup END
