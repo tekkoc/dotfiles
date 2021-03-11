@@ -337,3 +337,18 @@ augroup vimrcEx
   au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
   \ exe "normal g`\"" | endif
 augroup END
+
+augroup vimrc
+  autocmd!
+  autocmd Filetype * call s:filetype(expand('<amatch>'))
+augroup END
+
+function! s:filetype(ftype) abort
+  if !empty(a:ftype) && exists('*' . 's:filetype_' . a:ftype)
+    execute 'call s:filetype_' . a:ftype . '()'
+  endif
+endfunction
+
+function! s:filetype_php() abort
+  set commentstring=//%s
+endfunction
