@@ -52,6 +52,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'thinca/vim-quickrun'
 
+" visualモードで * で検索
+Plug 'thinca/vim-visualstar'
+
 " 言語系
 Plug 'rust-lang/rust.vim'
 
