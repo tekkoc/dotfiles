@@ -58,11 +58,14 @@ Plug 'thinca/vim-visualstar'
 " 言語系
 Plug 'rust-lang/rust.vim'
 
-Plug 'editorconfig/editorconfig-vim'
+" 一旦廃止
+" Plug 'editorconfig/editorconfig-vim'
 
 Plug 'nathanaelkane/vim-indent-guides'
 
 Plug 'junegunn/vim-easy-align'
+
+Plug 'kana/vim-smartchr'
 
 call plug#end()
 
@@ -341,11 +344,11 @@ augroup vimrcEx
   \ exe "normal g`\"" | endif
 augroup END
 
+" ファイルタイプ別の設定を読み込む
 augroup vimrc
   autocmd!
   autocmd Filetype * call s:filetype(expand('<amatch>'))
 augroup END
-
 function! s:filetype(ftype) abort
   if !empty(a:ftype) && exists('*' . 's:filetype_' . a:ftype)
     execute 'call s:filetype_' . a:ftype . '()'
@@ -353,5 +356,15 @@ function! s:filetype(ftype) abort
 endfunction
 
 function! s:filetype_php() abort
+  setlocal shiftwidth=2
+  setlocal tabstop=2
+  setlocal softtabstop=2
+  setlocal noexpandtab
+
   set commentstring=//%s
+
+  inoremap <buffer><expr> = smartchr#one_of('=', ' = ', ' == ', ' === ', '==')
+  inoremap <buffer><expr> . smartchr#one_of('.', '->', ' => ', '..')
+  inoremap <buffer><expr> , smartchr#one_of(', ', ',')
+  inoremap <buffer><expr> @ smartchr#one_of('$this->', '@')
 endfunction
