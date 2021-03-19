@@ -67,6 +67,8 @@ Plug 'junegunn/vim-easy-align'
 
 Plug 'kana/vim-smartchr'
 
+Plug 'tyru/open-browser.vim'
+
 call plug#end()
 
 function! CocInstall()
@@ -332,6 +334,10 @@ if HasPlugin('vim-quickrun')
   \     'exec' : 'cargo run'
   \   },
   \}
+endif
+
+if HasPlugin('openbrowser')
+  nmap <silent> <Leader>o <Plug>(openbrowser-open)
 endif
 
 set iskeyword+=$
