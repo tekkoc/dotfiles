@@ -76,6 +76,7 @@ function! CocInstall()
   CocInstall coc-tsserver
   CocInstall coc-eslint
   CocInstall coc-fzf-preview
+  CocInstall coc-rls
 endfunction
 
 syntax on
