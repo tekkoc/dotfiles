@@ -221,8 +221,8 @@ function! ToggleCheckbox()
     call setline('.', l:result)
   end
 endfunction
-nnoremap <Leader>ti I- [ ]
-nnoremap <Leader>tt :call ToggleCheckbox()<CR>
+nnoremap <space>ti I- [ ]
+nnoremap <space>tt :call ToggleCheckbox()<CR>
 
 command! -nargs=? Jq call s:Jq(<f-args>)
 function! s:Jq(...)
