@@ -187,6 +187,10 @@ nnoremap Q q
 " ノーマルモード時に改行
 nnoremap <CR> o<Esc>
 
+" 行末に ; , を追加
+nnoremap <expr> <space>; getline('.')[col('$') - 2] == ';' ? "" : 'A;<Esc>'
+nnoremap <expr> <space>, getline('.')[col('$') - 2] == ',' ? "" : 'A,<Esc>'
+
 " 行を詰めずに削除
 nnoremap <Space>d cc<ESC>
 
