@@ -69,6 +69,8 @@ Plug 'kana/vim-smartchr'
 
 Plug 'tyru/open-browser.vim'
 
+Plug 'thinca/vim-localrc'
+
 call plug#end()
 
 function! CocInstall()
@@ -201,6 +203,7 @@ nnoremap <silent> <Space>.s :<C-u>split ~/.vimrc<CR>
 nnoremap <silent> <Space>.v :<C-u>vsplit ~/.vimrc<CR>
 nnoremap <silent> <Space>.r :<C-u>source ~/.vimrc<CR>
 nnoremap <silent> <Space>.i :<C-u>PlugInstall<CR>
+nnoremap <silent> <Space>.l :<C-u>edit .local.vimrc<CR>
 
 " メモファイル
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
@@ -337,7 +340,7 @@ if HasPlugin('vim-quickrun')
   \   },
   \   'rust': {
   \     'exec' : 'cargo run'
-  \   },
+  \   }
   \}
 endif
 
