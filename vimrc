@@ -58,14 +58,9 @@ Plug 'thinca/vim-visualstar'
 " 言語系
 Plug 'rust-lang/rust.vim'
 
-" 一旦廃止
-" Plug 'editorconfig/editorconfig-vim'
-
 Plug 'nathanaelkane/vim-indent-guides'
 
 Plug 'junegunn/vim-easy-align'
-
-Plug 'kana/vim-smartchr'
 
 Plug 'tyru/open-browser.vim'
 
@@ -376,9 +371,4 @@ function! s:filetype_php() abort
   setlocal noexpandtab
 
   set commentstring=//%s
-
-  inoremap <buffer><expr> = smartchr#one_of('=', ' = ', ' == ', ' === ', '==')
-  inoremap <buffer><expr> . smartchr#one_of('.', '->', ' => ', '..')
-  inoremap <buffer><expr> , smartchr#one_of(', ', ',')
-  inoremap <buffer><expr> @ smartchr#one_of('$this->', '@')
 endfunction
