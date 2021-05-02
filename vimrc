@@ -66,6 +66,10 @@ Plug 'tyru/open-browser.vim'
 
 Plug 'thinca/vim-localrc'
 
+" flutter
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'thosakwe/vim-flutter'
+
 call plug#end()
 
 function! CocInstall()
@@ -75,6 +79,7 @@ function! CocInstall()
   CocInstall coc-fzf-preview
   CocInstall coc-rls
   CocInstall coc-explorer
+  CocInstall coc-flutter
 endfunction
 
 syntax on
@@ -252,6 +257,7 @@ if HasPlugin('fzf-preview')
   nnoremap <silent> <leader>um :<C-u>CocCommand fzf-preview.ProjectMruFiles<CR>
   nnoremap <silent> <leader>uM :<C-u>CocCommand fzf-preview.MruFiles<CR>
   nnoremap <silent> <leader>ug :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
+  nnoremap <silent> <leader>ub :<C-u>CocCommand fzf-preview.AllBuffers<CR>
 
   " git系
   nnoremap <silent> <leader>gs :<C-u>CocCommand fzf-preview.GitStatus<CR>
@@ -374,4 +380,11 @@ function! s:filetype_php() abort
   setlocal noexpandtab
 
   set commentstring=//%s
+endfunction
+
+
+function! s:filetype_dart() abort
+  nnoremap <leader>r <Nop>
+  nnoremap <leader>rr :<C-u>FlutterRun<CR>
+  nnoremap <leader>rq :<C-u>FlutterQuit<CR>
 endfunction
