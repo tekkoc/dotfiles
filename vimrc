@@ -74,6 +74,7 @@ function! CocInstall()
   CocInstall coc-eslint
   CocInstall coc-fzf-preview
   CocInstall coc-rls
+  CocInstall coc-explorer
 endfunction
 
 syntax on
@@ -197,7 +198,7 @@ nnoremap <silent> <Space>.e :<C-u>edit ~/.vimrc<CR>
 nnoremap <silent> <Space>.s :<C-u>split ~/.vimrc<CR>
 nnoremap <silent> <Space>.v :<C-u>vsplit ~/.vimrc<CR>
 nnoremap <silent> <Space>.r :<C-u>source ~/.vimrc<CR>
-nnoremap <silent> <Space>.i :<C-u>PlugInstall<CR>
+nnoremap <silent> <Space>.i :<C-u>PlugInstall<CR>:call CocInstall()<CR>
 nnoremap <silent> <Space>.l :<C-u>edit .local.vimrc<CR>
 
 " メモファイル
@@ -281,8 +282,8 @@ if HasPlugin('vim-operator-user')
   set commentstring=//%s
 
   " camelize
-  map <Leader>c <Plug>(operator-camelize)
-  map <Leader>C <Plug>(operator-decamelize)
+  map <leader>c <Plug>(operator-camelize)
+  map <leader>C <Plug>(operator-decamelize)
 
   " 置換
   vmap p <Plug>(operator-replace)
@@ -302,6 +303,8 @@ if HasPlugin('coc.nvim')
 
   " Highlight the symbol and its references when holding the cursor.
   autocmd CursorHold * silent call CocActionAsync('highlight')
+
+  nnoremap <leader>f :<C-u>CocCommand explorer<CR>
 endif
 
 if HasPlugin('lightline')
@@ -340,7 +343,7 @@ if HasPlugin('vim-quickrun')
 endif
 
 if HasPlugin('openbrowser')
-  nmap <silent> <Leader>o <Plug>(openbrowser-open)
+  nmap <silent> <leader>o <Plug>(openbrowser-open)
 endif
 
 set iskeyword+=$
