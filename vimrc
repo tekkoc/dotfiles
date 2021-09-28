@@ -71,6 +71,9 @@ Plug 'thinca/vim-localrc'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'thosakwe/vim-flutter'
 
+" toggle
+Plug 'lukelbd/vim-toggle'
+
 call plug#end()
 
 function! CocInstall()
@@ -360,6 +363,8 @@ endif
 set iskeyword+=$
 
 let g:indent_guides_enable_on_vim_startup = 1
+
+let g:toggle_map = "<Leader>t"
 
 " ファイルをひらいたときに最後にカーソルがあった場所に移動する
 augroup vimrcEx
