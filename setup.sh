@@ -29,3 +29,5 @@ ln -sf `pwd`/gitignore_global ~/.gitignore_global
 ln -sf `pwd`/karabiner-elements.json ~/.config/karabiner/assets/complex_modifications/1984.json
 
 ln -sf `pwd`/hammerspoon.lua ~/.hammerspoon/init.lua
+
+ln -sf `pwd`/xvimrc ~/.xvimrc

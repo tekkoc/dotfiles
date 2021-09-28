@@ -57,6 +57,7 @@ Plug 'thinca/vim-visualstar'
 
 " 言語系
 Plug 'rust-lang/rust.vim'
+Plug 'keith/swift.vim'
 
 Plug 'nathanaelkane/vim-indent-guides'
 
@@ -80,6 +81,7 @@ function! CocInstall()
   CocInstall coc-rls
   CocInstall coc-explorer
   CocInstall coc-flutter
+  CocInstall coc-sourcekit
 endfunction
 
 syntax on
@@ -306,6 +308,9 @@ if HasPlugin('coc.nvim')
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
+  nmap <silent> gR <Plug>(coc-rename)
+  nnoremap <silent> gh :<C-u>call CocAction('doHover')<CR>
+  nnoremap <silent> gl :<C-u>CocList<CR>
 
   " Highlight the symbol and its references when holding the cursor.
   autocmd CursorHold * silent call CocActionAsync('highlight')
