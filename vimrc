@@ -55,6 +55,9 @@ Plug 'thinca/vim-quickrun'
 " visualモードで * で検索
 Plug 'thinca/vim-visualstar'
 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'christianchiarulli/nvcode-color-schemes.vim'
+
 " 言語系
 Plug 'rust-lang/rust.vim'
 Plug 'keith/swift.vim'
@@ -89,6 +92,10 @@ endfunction
 
 syntax on
 filetype plugin indent on
+
+" https://vimcolorschemes.com/christianchiarulli/nvcode-color-schemes.vim
+set background=dark
+colorscheme onedark
 
 " 自動再読み込み
 set autoread
@@ -248,11 +255,6 @@ function! HasPlugin(name)
         \   || globpath(&runtimepath, 'colors/' . a:name . '.vim') !=# ''
 endfunction
 
-if HasPlugin('iceberg')
-  colorscheme iceberg
-  set background=dark
-endif
-
 if HasPlugin('fzf-preview')
   set shell=/bin/zsh
   let $SHELL = "/bin/zsh"
@@ -398,3 +400,22 @@ function! s:filetype_dart() abort
   nnoremap <leader>rr :<C-u>FlutterRun<CR>
   nnoremap <leader>rq :<C-u>FlutterQuit<CR>
 endfunction
+
+" :TSInstall maintained
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  },
+  ensure_installed = 'maintained'
+}
+EOF
+
+let g:nvcode_termcolors=256
+if (has("termguicolors"))
+    set termguicolors
+    hi LineNr ctermbg=NONE guibg=NONE
+endif
