@@ -22,7 +22,9 @@ Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-operator-user'
 Plug 'tyru/operator-camelize.vim'
 Plug 'kana/vim-operator-replace'
-Plug 'emonkak/vim-operator-comment'
+
+" コメント
+Plug 'tpope/vim-commentary'
 
 " LSP
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -289,11 +291,6 @@ if HasPlugin('findroot')
 endif
 
 if HasPlugin('vim-operator-user')
-  " コメント
-  map C <Plug>(operator-comment)
-  map X <Plug>(operator-uncomment)
-  set commentstring=//%s
-
   " camelize
   map <leader>c <Plug>(operator-camelize)
   map <leader>C <Plug>(operator-decamelize)
