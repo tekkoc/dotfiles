@@ -90,6 +90,7 @@ function! CocInstall()
   CocInstall coc-explorer
   CocInstall coc-flutter
   CocInstall coc-sourcekit
+  CocInstall coc-prettier
 endfunction
 
 syntax on
@@ -396,6 +397,13 @@ function! s:filetype_dart() abort
   nnoremap <leader>r <Nop>
   nnoremap <leader>rr :<C-u>FlutterRun<CR>
   nnoremap <leader>rq :<C-u>FlutterQuit<CR>
+endfunction
+
+function! s:filetype_typescript() abort
+  setlocal shiftwidth=2
+  setlocal tabstop=2
+  setlocal softtabstop=2
+  setlocal noexpandtab
 endfunction
 
 " :TSInstall maintained
