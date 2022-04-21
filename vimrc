@@ -147,7 +147,7 @@ let mapleader =","
 vnoremap <C-l> <Esc>
 inoremap <C-l> <Esc>
 cnoremap <C-l> <C-c>
-nnoremap <C-l> <Esc>
+nnoremap <C-l> :nohlsearch<CR>  " normal モードではハイライトを消す
 
 " シフトで多めに移動
 nnoremap <silent> J 10j
