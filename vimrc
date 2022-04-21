@@ -366,6 +366,9 @@ let g:indent_guides_enable_on_vim_startup = 1
 
 let g:toggle_map = "<Leader>t"
 
+nmap CC gcl
+map C gc
+
 " ファイルをひらいたときに最後にカーソルがあった場所に移動する
 augroup vimrcEx
   au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
