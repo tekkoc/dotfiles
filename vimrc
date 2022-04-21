@@ -85,7 +85,7 @@ function! CocInstall()
   CocInstall coc-tsserver
   CocInstall coc-eslint
   CocInstall coc-fzf-preview
-  CocInstall coc-rls
+  CocInstall coc-rust-analyzer
   CocInstall coc-explorer
   CocInstall coc-prettier
 endfunction
