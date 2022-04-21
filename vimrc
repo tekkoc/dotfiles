@@ -315,7 +315,8 @@ if HasPlugin('coc.nvim')
   " Highlight the symbol and its references when holding the cursor.
   autocmd CursorHold * silent call CocActionAsync('highlight')
 
-  nnoremap <leader>f :<C-u>CocCommand explorer<CR>
+  nnoremap <leader>f :<C-u>CocCommand explorer .<CR>
+  nnoremap <leader>F :<C-u>CocCommand explorer ~<CR>
 endif
 
 if HasPlugin('lightline')
