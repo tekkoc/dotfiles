@@ -82,14 +82,11 @@ Plug 'lukelbd/vim-toggle'
 call plug#end()
 
 function! CocInstall()
-  CocInstall coc-json
   CocInstall coc-tsserver
   CocInstall coc-eslint
   CocInstall coc-fzf-preview
   CocInstall coc-rls
   CocInstall coc-explorer
-  CocInstall coc-flutter
-  CocInstall coc-sourcekit
   CocInstall coc-prettier
 endfunction
 
