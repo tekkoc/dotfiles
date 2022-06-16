@@ -29,3 +29,6 @@
 
 [ghq]
   root = ~/dev/src
+
+[fetch]
+	prune = true
