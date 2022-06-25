@@ -27,7 +27,9 @@ ln -sf `pwd`/tmux.conf ~/.tmux.conf
 ln -sf `pwd`/gitconfig ~/.gitconfig
 ln -sf `pwd`/gitignore_global ~/.gitignore_global
 
-ln -sf `pwd`/karabiner-elements.json ~/.config/karabiner/assets/complex_modifications/1984.json
+if [ ! -e ~/.config/karabiner ] ; then
+  ln -sf `pwd`/karabiner-elements.json ~/.config/karabiner/assets/complex_modifications/1984.json
+fi
 
 ln -sf `pwd`/hammerspoon.lua ~/.hammerspoon/init.lua
 
