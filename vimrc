@@ -79,6 +79,9 @@ Plug 'thosakwe/vim-flutter'
 " toggle
 Plug 'lukelbd/vim-toggle'
 
+" 高速移動
+Plug 'phaazon/hop.nvim'
+
 call plug#end()
 
 function! CocInstall()
@@ -422,6 +425,14 @@ EOF
 
 let g:nvcode_termcolors=256
 if (has("termguicolors"))
-    set termguicolors
-    hi LineNr ctermbg=NONE guibg=NONE
+  set termguicolors
+  hi LineNr ctermbg=NONE guibg=NONE
+endif
+
+if HasPlugin('hop')
+  lua require'hop'.setup()
+
+  nnoremap <leader>h <Nop>
+  nnoremap <leader>hh :<C-u>HopChar1<CR>
+  nnoremap <leader>hl :<C-u>HopLine<CR>
 endif
