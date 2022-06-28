@@ -386,8 +386,10 @@ set iskeyword+=$
 
 let g:indent_guides_enable_on_vim_startup = 1
 
+" vim-toggle
 let g:toggle_map = "<Leader>t"
 
+" コメントアウト
 nmap CC gcl
 map C gc
 
