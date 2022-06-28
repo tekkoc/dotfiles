@@ -51,8 +51,8 @@ Plug 'thinca/vim-ambicmd'
 Plug 'tpope/vim-fugitive'
 
 " quickrun
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'thinca/vim-quickrun'
+Plug 'lambdalisue/vim-quickrun-neovim-job'
 
 " visualモードで * で検索
 Plug 'thinca/vim-visualstar'
@@ -140,6 +140,9 @@ set incsearch
 " ヤンクしたものをクリップボードにも
 set clipboard=unnamed
 
+" 新しいウィンドウを下に開く
+set splitbelow
+
 " コロンとセミコロンを入れ替え
 noremap : ;
 noremap ; :
@@ -168,6 +171,9 @@ nnoremap <space>W :<C-u>wa<CR>
 
 " sをprefixに分割・タブページ関連を割り当てる
 nnoremap s <Nop>
+
+" 今のウィンドウ以外を閉じる
+nnoremap so :<C-u>only<CR>
 
 " ss sv で分割
 nnoremap ss :<C-u>sp<CR>
@@ -348,13 +354,16 @@ endif
 if HasPlugin('vim-quickrun')
   let g:quickrun_config = {
   \   "_" : {
-  \     "outputter/buffer/split" : ":botright",
-  \     "runner" : "vimproc"
+  \     "runner" : "neovim_job",
+  \     'outputter/buffer/opener': 'new',
+  \     'outputter/buffer/close_on_empty': 1,
   \   },
   \   'rust': {
   \     'exec' : 'cargo run'
   \   }
   \}
+
+  nnoremap <silent> <leader>rr :<C-u>QuickRun<CR>
 endif
 
 if HasPlugin('openbrowser')
