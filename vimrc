@@ -256,6 +256,18 @@ function! s:Jq(...)
   execute "%! cat % | jq \"" . l:arg . "\""
 endfunction
 
+" .vimrc.local をプロジェクト固有の設定ファイルとして開く
+augroup vimrc-local
+  autocmd!
+  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+augroup END
+function! s:vimrc_local(loc)
+  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+  for i in reverse(filter(files, 'filereadable(v:val)'))
+    source `=i`
+  endfor
+endfunction
+
 function! HasPlugin(name)
   return globpath(&runtimepath, 'plugin/' . a:name . '.vim') !=# ''
         \   || globpath(&runtimepath, 'autoload/' . a:name . '.vim') !=# ''
