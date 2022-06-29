@@ -82,6 +82,9 @@ Plug 'lukelbd/vim-toggle'
 " 高速移動
 Plug 'phaazon/hop.nvim'
 
+" local vimrc
+Plug 'klen/nvim-config-local'
+
 call plug#end()
 
 function! CocInstall()
@@ -223,9 +226,9 @@ nnoremap <silent> <Space>.. :<C-u>edit ~/.vimrc<CR>
 nnoremap <silent> <Space>.e :<C-u>edit ~/.vimrc<CR>
 nnoremap <silent> <Space>.s :<C-u>split ~/.vimrc<CR>
 nnoremap <silent> <Space>.v :<C-u>vsplit ~/.vimrc<CR>
-nnoremap <silent> <Space>.r :<C-u>source ~/.vimrc<CR>
+nnoremap <silent> <Space>.r :<C-u>source ~/.vimrc<CR>:ConfigSource<CR>
 nnoremap <silent> <Space>.i :<C-u>PlugInstall<CR>:call CocInstall()<CR>
-nnoremap <silent> <Space>.l :<C-u>edit .local.vimrc<CR>
+nnoremap <silent> <Space>.l :<C-u>ConfigEdit<CR>
 
 " メモファイル
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
@@ -254,18 +257,6 @@ function! s:Jq(...)
     let l:arg = a:1
   endif
   execute "%! cat % | jq \"" . l:arg . "\""
-endfunction
-
-" .vimrc.local をプロジェクト固有の設定ファイルとして開く
-augroup vimrc-local
-  autocmd!
-  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
-augroup END
-function! s:vimrc_local(loc)
-  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
-  for i in reverse(filter(files, 'filereadable(v:val)'))
-    source `=i`
-  endfor
 endfunction
 
 function! HasPlugin(name)
@@ -458,4 +449,12 @@ if HasPlugin('hop')
   nnoremap <leader>h <Nop>
   nnoremap <leader>hh :<C-u>HopChar1<CR>
   nnoremap <leader>hl :<C-u>HopLine<CR>
+endif
+
+if HasPlugin('nvim-config-local')
+  lua <<EOF
+  require'config-local'.setup {
+    config_files = { ".vimrc.local"},
+    }
+EOF
 endif
