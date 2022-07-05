@@ -85,6 +85,9 @@ Plug 'phaazon/hop.nvim'
 " local vimrc
 Plug 'klen/nvim-config-local'
 
+" 折りたたみ表示
+Plug 'LeafCage/foldCC.vim'
+
 call plug#end()
 
 function! CocInstall()
@@ -230,6 +233,25 @@ nnoremap <silent> <Space>.r :<C-u>source ~/.vimrc<CR>:ConfigSource<CR>
 nnoremap <silent> <Space>.i :<C-u>PlugInstall<CR>:call CocInstall()<CR>
 nnoremap <silent> <Space>.l :<C-u>ConfigEdit<CR>
 
+set foldmethod=indent
+set foldlevel=1
+set foldtext=FoldCCtext()
+highlight Folded ctermfg=180 ctermbg=241 guifg=#e5c07b guibg=#5c6370
+
+" 折りたたみトグル
+nmap <Space>ff za
+nmap <Space>fF zA
+
+" 折りたたみ開閉
+nmap <Space>fo zo
+nmap <Space>fO zO
+nmap <Space>fc zc
+nmap <Space>fC zC
+
+" 折りたたみ移動
+nmap <Space>fj zj
+nmap <Space>fk zk
+
 " メモファイル
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
 command! Memo edit ~/Dropbox/Memo/memo.md
@@ -366,6 +388,7 @@ if HasPlugin('vim-quickrun')
   \   }
   \}
 
+  nnoremap <silent> <leader>r <Nop>
   nnoremap <silent> <leader>rr :<C-u>QuickRun<CR>
 endif
 
