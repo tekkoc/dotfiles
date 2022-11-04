@@ -57,7 +57,7 @@ Plug 'lambdalisue/vim-quickrun-neovim-job'
 " visualモードで * で検索
 Plug 'thinca/vim-visualstar'
 
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 
 " 言語系
@@ -458,18 +458,18 @@ function! s:filetype_markdown() abort
 endfunction
 
 " TODO treesitter を戻す
-" :TSInstall maintained
-" lua <<EOF
-" require'nvim-treesitter.configs'.setup {
-"   highlight = {
-"     enable = true,
-"   },
-"   indent = {
-"     enable = true,
-"   },
-"   ensure_installed = 'maintained'
-" }
-" EOF
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "lua", "rust" },
+  auto_install = true,
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  }
+}
+EOF
 
 let g:nvcode_termcolors=256
 if (has("termguicolors"))
