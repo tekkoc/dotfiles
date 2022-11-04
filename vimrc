@@ -233,8 +233,6 @@ nnoremap <silent> <Space>.r :<C-u>source ~/.vimrc<CR>:ConfigSource<CR>
 nnoremap <silent> <Space>.i :<C-u>PlugInstall<CR>:call CocInstall()<CR>
 nnoremap <silent> <Space>.l :<C-u>ConfigEdit<CR>
 
-set foldmethod=indent
-set foldlevel=1
 set foldtext=FoldCCtext()
 highlight Folded ctermfg=180 ctermbg=241 guifg=#e5c07b guibg=#5c6370
 
