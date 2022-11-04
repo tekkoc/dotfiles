@@ -385,11 +385,15 @@ if HasPlugin('vim-quickrun')
   \   },
   \   'rust': {
   \     'exec' : 'cargo run'
+  \   },
+  \   'rust:test': {
+  \     'exec' : 'cargo test'
   \   }
   \}
 
   nnoremap <silent> <leader>r <Nop>
   nnoremap <silent> <leader>rr :<C-u>QuickRun<CR>
+  nnoremap <silent> <leader>rt :<C-u>QuickRun rust:test<CR>
 endif
 
 if HasPlugin('openbrowser')
