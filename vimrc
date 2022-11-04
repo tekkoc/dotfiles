@@ -490,3 +490,4 @@ if HasPlugin('nvim-config-local')
     }
 EOF
 endif
+let g:python3_host_prog = system('echo -n $(which python3)')
