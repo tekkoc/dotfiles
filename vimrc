@@ -129,6 +129,10 @@ set scrolloff=999
 set number
 set relativenumber
 
+" 行と列を強調表示
+set cursorline
+set cursorcolumn
+
 " タブ・インデント設定
 set expandtab
 set tabstop=2
