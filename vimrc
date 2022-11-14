@@ -104,7 +104,7 @@ filetype plugin indent on
 
 " https://vimcolorschemes.com/christianchiarulli/nvcode-color-schemes.vim
 set background=dark
-colorscheme onedark
+colorscheme iceberg
 
 " 自動再読み込み
 set autoread
