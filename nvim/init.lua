@@ -1,3 +1,5 @@
+vim.g.mapleader = ","
+
 -- カーソルを真ん中に
 vim.o.scrolloff = 999
 
@@ -38,6 +40,8 @@ vim.o.shiftwidth = 2
 vim.o.softtabstop = 2
 vim.o.autoindent = true
 vim.o.smartindent = true
+
+vim.cmd 'colorscheme iceberg'
 
 -- ; : の入れ替え
 vim.keymap.set('n', ';', ':')
@@ -91,6 +95,19 @@ vim.keymap.set('n', '<CR>', 'o<ESC>')
 vim.keymap.set('n', '<SPACE>d', 'cc<ESC>')
 
 -- init.lua 関連
-vim.keymap.set('n', '<SPACE>..', ':edit ~/.config/nvim/init.lua<CR>')
-vim.keymap.set('n', '<SPACE>.e', ':edit ~/.config/nvim/init.lua<CR>')
-vim.keymap.set('n', '<SPACE>.r', ':source ~/.config/nvim/init.lua<CR>')
+dotfiles_path = '~/dev/src/github.com/tekkoc/dotfiles'
+init_path = dotfiles_path .. '/nvim/init.lua'
+plugin_path = dotfiles_path .. '/nvim/lua/plugins.lua'
+vim.keymap.set('n', '<SPACE>..', ':edit ' .. init_path .. '<CR>')
+vim.keymap.set('n', '<SPACE>.e', ':edit ' .. init_path .. '<CR>')
+vim.keymap.set('n', '<SPACE>.p', ':edit ' .. plugin_path .. '<CR>')
+vim.keymap.set('n', '<SPACE>.r', ':source ' .. init_path .. '<CR>')
+
+vim.cmd([[
+augroup packer_user_config
+autocmd!
+autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+augroup end
+]])
+
+require('plugins')
