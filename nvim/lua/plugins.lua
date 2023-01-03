@@ -1,3 +1,10 @@
+vim.cmd([[
+  augroup packer_user_config
+  autocmd!
+  autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
+
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
@@ -48,9 +55,9 @@ return require('packer').startup(function(use)
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
     requires = { {'nvim-lua/plenary.nvim'} },
     setup = function()
-      vim.keymap.set('n', 'sf', '<cmd>lua require("telescope.builtin").find_files()<cr>',{noremap = true})
-      vim.keymap.set('n', 'sb', '<cmd>lua require("telescope.builtin").buffers()<cr>',{noremap = true})
-      vim.keymap.set('n', 'sh', '<cmd>lua require("telescope.builtin").help_tags()<cr>',{noremap = true})
+      vim.keymap.set('n', '<leader>uf', '<cmd>lua require("telescope.builtin").find_files()<cr>',{noremap = true})
+      vim.keymap.set('n', '<leader>ub', '<cmd>lua require("telescope.builtin").buffers()<cr>',{noremap = true})
+      vim.keymap.set('n', '<leader>uh', '<cmd>lua require("telescope.builtin").help_tags()<cr>',{noremap = true})
     end,
   }
 
@@ -60,6 +67,5 @@ return require('packer').startup(function(use)
   -- tree-sitter
   -- nvcode-color-scheme
   -- filer
-  -- fuzzy finder
   -- language server
 end)
