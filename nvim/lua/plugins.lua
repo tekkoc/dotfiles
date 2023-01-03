@@ -54,12 +54,23 @@ return require('packer').startup(function(use)
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
     requires = { {'nvim-lua/plenary.nvim'} },
-    setup = function()
-      vim.keymap.set('n', '<leader>uf', '<cmd>lua require("telescope.builtin").find_files()<cr>',{noremap = true})
-      vim.keymap.set('n', '<leader>ub', '<cmd>lua require("telescope.builtin").buffers()<cr>',{noremap = true})
-      vim.keymap.set('n', '<leader>uh', '<cmd>lua require("telescope.builtin").help_tags()<cr>',{noremap = true})
-    end,
-  }
+    config = function()
+      local builtin = require('telescope.builtin')
+      vim.keymap.set('n', '<leader>uf', builtin.find_files)
+      vim.keymap.set('n', '<leader>ub', builtin.buffers)
+      vim.keymap.set('n', '<leader>uh', builtin.help_tags)
+      vim.keymap.set('n', '<leader>ug', builtin.live_grep)
+      require('telescope').setup{
+        defaults = {
+          mappings = {
+            i = {
+              ["<C-l>"] = "close"
+            }
+          }
+        }
+      }
+      end,
+    }
 
   -- status line
   -- use 'sheerun/vim-polyglot'
