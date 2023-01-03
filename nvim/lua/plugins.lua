@@ -125,7 +125,6 @@ return require('packer').startup(function(use)
   }
 
   -- use 'dense-analysis/ale'
-  -- nvcode-color-scheme
   -- filer
   -- language server
 end)
