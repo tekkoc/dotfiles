@@ -104,10 +104,10 @@ vim.keymap.set('n', '<SPACE>.p', ':edit ' .. plugin_path .. '<CR>')
 vim.keymap.set('n', '<SPACE>.r', ':source ' .. init_path .. '<CR>')
 
 vim.cmd([[
-augroup packer_user_config
-autocmd!
-autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-augroup end
+  augroup packer_user_config
+  autocmd!
+  autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
 ]])
 
 require('plugins')

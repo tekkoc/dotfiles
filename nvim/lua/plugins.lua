@@ -44,6 +44,16 @@ return require('packer').startup(function(use)
 
   use 'rust-lang/rust.vim'
 
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    requires = { {'nvim-lua/plenary.nvim'} },
+    setup = function()
+      vim.keymap.set('n', 'sf', '<cmd>lua require("telescope.builtin").find_files()<cr>',{noremap = true})
+      vim.keymap.set('n', 'sb', '<cmd>lua require("telescope.builtin").buffers()<cr>',{noremap = true})
+      vim.keymap.set('n', 'sh', '<cmd>lua require("telescope.builtin").help_tags()<cr>',{noremap = true})
+    end,
+  }
+
   -- status line
   -- use 'sheerun/vim-polyglot'
   -- use 'dense-analysis/ale'
