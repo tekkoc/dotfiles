@@ -72,6 +72,16 @@ return require('packer').startup(function(use)
     end,
   }
 
+  use {
+    "nvim-telescope/telescope-frecency.nvim",
+    requires = {"kkharji/sqlite.lua"},
+    config = function()
+      require"telescope".load_extension("frecency")
+
+      vim.keymap.set('n', '<leader>um', require('telescope').extensions.frecency.frecency)
+    end,
+  }
+
   use 'sheerun/vim-polyglot'
   use {
     'nvim-treesitter/nvim-treesitter',
