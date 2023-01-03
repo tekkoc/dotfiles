@@ -69,13 +69,21 @@ return require('packer').startup(function(use)
           }
         }
       }
-      end,
-    }
+    end,
+  }
+
+  use 'sheerun/vim-polyglot'
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        ensure_installed = {'lua', 'rust'},
+      }
+    end,
+  }
 
   -- status line
-  -- use 'sheerun/vim-polyglot'
   -- use 'dense-analysis/ale'
-  -- tree-sitter
   -- nvcode-color-scheme
   -- filer
   -- language server
