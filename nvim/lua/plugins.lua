@@ -142,7 +142,73 @@ return require('packer').startup(function(use)
     end
   }
 
+  use {
+    'neovim/nvim-lspconfig',
+    config = function()
+      vim.keymap.set('n', 'gk',  '<cmd>lua vim.lsp.buf.hover()<CR>')
+      vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+      vim.keymap.set('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+    end,
+  }
+  use {
+    'williamboman/mason.nvim',
+    config = function()
+      require('mason').setup()
+    end,
+  }
+  use {
+    'williamboman/mason-lspconfig.nvim',
+    config = function()
+      local lspconfig = require('lspconfig')
+      require("mason-lspconfig").setup({
+          ensure_installed = { "sumneko_lua" }
+        })
+      require('mason-lspconfig').setup_handlers({
+          function(server)
+            lspconfig[server].setup({})
+          end,
+          ["sumneko_lua"] = function ()
+            lspconfig.sumneko_lua.setup {
+              settings = {
+                Lua = {
+                  diagnostics = {
+                    globals = { "vim" }
+                  }
+                }
+              }
+            }
+          end,
+        })
+    end,
+  }
+  use {
+    "hrsh7th/nvim-cmp",
+    requires = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+    },
+    config = function()
+      local cmp = require("cmp")
+      cmp.setup({
+          sources = {
+            { name = "nvim_lsp" },
+            { name = "buffer" },
+            { name = "path" },
+          },
+          mapping = cmp.mapping.preset.insert({
+              ["<C-p>"] = cmp.mapping.select_prev_item(),
+              ["<C-n>"] = cmp.mapping.select_next_item(),
+              ['<C-c>'] = cmp.mapping.abort(),
+              ["<CR>"] = cmp.mapping.confirm { select = true },
+            }),
+          experimental = {
+            ghost_text = true,
+          },
+        })
+    end,
+  }
+
   -- use 'dense-analysis/ale'
   -- filer
-  -- language server
 end)
