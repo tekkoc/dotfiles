@@ -58,8 +58,6 @@ return require('packer').startup(function(use)
     end,
   }
 
-  use 'mhinz/vim-signify'
-
   use 'cohama/vim-insert-linenr'
 
   use 'rust-lang/rust.vim'
@@ -135,6 +133,13 @@ return require('packer').startup(function(use)
         },
       }
     end,
+  }
+
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup()
+    end
   }
 
   -- use 'dense-analysis/ale'
