@@ -54,6 +54,10 @@ vim.keymap.set('n', '<SPACE>d', 'cc<ESC>')
 -- init.lua 関連
 dotfiles_path = '~/dev/src/github.com/tekkoc/dotfiles'
 init_path = dotfiles_path .. '/nvim/init.lua'
-plugin_path = dotfiles_path .. '/nvim/lua/plugins.lua'
 vim.keymap.set('n', '<SPACE>..', ':edit ' .. init_path .. '<CR>')
-vim.keymap.set('n', '<SPACE>.r', ':source ' .. init_path .. '<CR>')
+vim.keymap.set('n', '<SPACE>.r', function()
+  for _, value in ipairs(setting_files) do
+    package.loaded[value] = nil
+  end
+  vim.cmd(':source ' .. init_path)
+end)
