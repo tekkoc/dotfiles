@@ -6,7 +6,7 @@ vim.keymap.set('n', ':', ';')
 
 -- <C-l> を ESC に
 vim.keymap.set({'v', 'i', 'c'}, '<C-l>', '<ESC>')
-vim.keymap.set('n', '<C-l>', ':nohlsearch<CR>')
+vim.keymap.set('n', '<C-l>', ':nohlsearch<CR>', {silent = true})
 
 -- 移動
 vim.keymap.set({'n', 'v'}, 'J', '10j')
@@ -24,11 +24,11 @@ vim.keymap.set('n', 'Q', 'q')
 -- s を 画面移動系のprefixに
 vim.keymap.set('n', 's', '<NOP>')
 
-vim.keymap.set('n', 'sq', ':quit<CR>')
+vim.keymap.set('n', 'sq', ':quit<CR>', {silent = true})
 
 -- 分割
-vim.keymap.set('n', 'ss', ':sp<CR>')
-vim.keymap.set('n', 'sv', ':vs<CR>')
+vim.keymap.set('n', 'ss', ':sp<CR>', {silent = true})
+vim.keymap.set('n', 'sv', ':vs<CR>', {silent = true})
 
 -- 分割移動
 vim.keymap.set('n', 'sj', '<C-w>j')
@@ -41,11 +41,11 @@ vim.keymap.set('n', 'sH', '<C-w>H')
 vim.keymap.set('n', 'sL', '<C-w>L')
 
 -- タブページ
-vim.keymap.set('n', 'st', ':tabnew<CR>')
+vim.keymap.set('n', 'st', ':tabnew<CR>', {silent = true})
 vim.keymap.set('n', 'sn', 'gt')
 vim.keymap.set('n', 'sp', 'gT')
-vim.keymap.set('n', 'sN', ':tabmove +1')
-vim.keymap.set('n', 'sP', ':tabmove -1')
+vim.keymap.set('n', 'sN', ':tabmove +1<CR>', {silent = true})
+vim.keymap.set('n', 'sP', ':tabmove -1<CR>', {silent = true})
 
 -- 編集支援系
 vim.keymap.set('n', '<CR>', 'o<ESC>')
@@ -54,7 +54,7 @@ vim.keymap.set('n', '<SPACE>d', 'cc<ESC>')
 -- init.lua 関連
 local dotfiles_path = '~/dev/src/github.com/tekkoc/dotfiles'
 local init_path = dotfiles_path .. '/nvim/init.lua'
-vim.keymap.set('n', '<SPACE>..', ':edit ' .. init_path .. '<CR>')
+vim.keymap.set('n', '<SPACE>..', ':edit ' .. init_path .. '<CR>', {silent = true})
 vim.keymap.set('n', '<SPACE>.r', function()
   for _, value in ipairs(vim.g.setting_files) do
     package.loaded[value] = nil
