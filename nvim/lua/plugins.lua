@@ -215,7 +215,7 @@ return require("packer").startup(function(use)
 		config = function()
 			local lspconfig = require("lspconfig")
 			require("mason-lspconfig").setup({
-				ensure_installed = { "sumneko_lua" },
+				ensure_installed = { "sumneko_lua", "rust_analyzer" },
 			})
 			require("mason-lspconfig").setup_handlers({
 				function(server)
