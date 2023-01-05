@@ -72,7 +72,6 @@ return require('packer').startup(function(use)
     end,
   }
 
-
   use 'rust-lang/rust.vim'
 
   use {
@@ -88,6 +87,9 @@ return require('packer').startup(function(use)
         defaults = {
           mappings = {
             i = {
+              -- TODO C-l で normal モードにしたい
+            },
+            n = {
               ["<C-l>"] = "close"
             }
           }
@@ -103,6 +105,15 @@ return require('packer').startup(function(use)
       require"telescope".load_extension("frecency")
 
       vim.keymap.set('n', '<leader>um', require('telescope').extensions.frecency.frecency)
+    end,
+  }
+
+  use {
+    'nvim-telescope/telescope-file-browser.nvim',
+    config = function()
+      require("telescope").load_extension('file_browser')
+
+      vim.keymap.set('n', '<leader>uF', ':Telescope file_browser<CR>', {noremap = true})
     end,
   }
 
