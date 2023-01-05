@@ -1,7 +1,0 @@
-{
-  "coc.preferences.formatOnSaveFiletypes": ["typescript"],
-  "rust-analyzer.diagnostics.enable": true,
-  "rust-analyzer.inlayHints.chainingHints": true,
-  "rust-analyzer.inlayHints.typeHints": true,
-  "rust-analyzer.inlayHints.parameterHints": true
-}
