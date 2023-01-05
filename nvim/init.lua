@@ -1,3 +1,5 @@
+-- https://zenn.dev/tekkoc/scraps/218aeb3d68f508
+
 vim.g.setting_files = {
   'core',
   'keymap',
