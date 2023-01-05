@@ -18,7 +18,7 @@ vim.o.undofile = false
 
 -- 改行文字表示
 vim.o.list = true
-vim.o.listchars = 'tab:¦ ,eol:↴,trail:-,nbsp:%,extends:>,precedes:<'
+vim.o.listchars = "tab:¦ ,eol:↴,trail:-,nbsp:%,extends:>,precedes:<"
 
 -- 検索
 vim.o.ignorecase = true
@@ -30,7 +30,7 @@ vim.o.incsearch = true
 vim.o.splitbelow = true
 
 -- クリップボード
-vim.o.clipboard='unnamedplus'
+vim.o.clipboard = "unnamedplus"
 
 -- タブ関連
 vim.o.expandtab = true
@@ -41,4 +41,4 @@ vim.o.autoindent = true
 vim.o.smartindent = true
 
 -- signcolumn を常に表示する
-vim.o.signcolumn = 'yes'
+vim.o.signcolumn = "yes"
