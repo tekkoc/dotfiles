@@ -15,7 +15,12 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
-  use 'cocopon/iceberg.vim'
+  use {
+    'EdenEast/nightfox.nvim',
+    config = function()
+      vim.cmd('colorscheme duskfox')
+    end
+  }
 
   use 'mattn/vim-findroot'
 

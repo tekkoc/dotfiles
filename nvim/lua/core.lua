@@ -42,6 +42,3 @@ vim.o.smartindent = true
 
 -- signcolumn を常に表示する
 vim.o.signcolumn = 'yes'
-
--- テーマ
-vim.cmd 'colorscheme iceberg'
