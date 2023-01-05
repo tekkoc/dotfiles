@@ -60,6 +60,14 @@ return require('packer').startup(function(use)
 
   use 'cohama/vim-insert-linenr'
 
+  use {
+    'tyru/open-browser.vim',
+    config = function()
+      vim.keymap.set('n', '<leader>o', '<Plug>(openbrowser-open)', {silent = true})
+    end,
+  }
+
+
   use 'rust-lang/rust.vim'
 
   use {
