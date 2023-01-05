@@ -190,6 +190,13 @@ return require('packer').startup(function(use)
     end,
   }
   use {
+    'j-hui/fidget.nvim',
+    config = function()
+      require("fidget").setup({})
+    end,
+  }
+
+  use {
     "hrsh7th/nvim-cmp",
     requires = {
       "hrsh7th/cmp-nvim-lsp",
