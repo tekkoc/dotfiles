@@ -1,3 +1,4 @@
+-- plugins.lua を更新したときに packer に読み込ませる
 vim.api.nvim_create_augroup("packer_user_config", {})
 vim.api.nvim_create_autocmd("BufWritePost", {
 	group = "packer_user_config",
@@ -15,6 +16,7 @@ vim.cmd([[packadd packer.nvim]])
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
+	-- テーマ
 	use({
 		"EdenEast/nightfox.nvim",
 		config = function()
@@ -22,15 +24,19 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- .git があるディレクトリをカレントディレクトリに
 	use("mattn/vim-findroot")
 
+	-- 括弧自動入力
 	use("jiangmiao/auto-pairs")
 
+	-- textobj系
 	use("kana/vim-textobj-user")
-	use("kana/vim-textobj-entire")
+	use("kana/vim-textobj-entire") -- ファイル全体
 	use("kana/vim-textobj-indent")
 	use("kana/vim-textobj-line")
 
+	-- operator系
 	use("kana/vim-operator-user")
 	use({
 		"kana/vim-operator-replace",
@@ -47,6 +53,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- コメントアウト
 	use({
 		"tpope/vim-commentary",
 		setup = function()
@@ -55,6 +62,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- コマンド補完
 	use({
 		"thinca/vim-ambicmd",
 		setup = function()
@@ -63,8 +71,10 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- insertモードのときに色を変える
 	use("cohama/vim-insert-linenr")
 
+	-- url をブラウザで開く
 	use({
 		"tyru/open-browser.vim",
 		config = function()
@@ -74,6 +84,7 @@ return require("packer").startup(function(use)
 
 	use("rust-lang/rust.vim")
 
+	-- プロジェクト別の init.lua を書けるように
 	use({
 		"klen/nvim-config-local",
 		config = function()
@@ -83,6 +94,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- プログラム実行
 	use({
 		"thinca/vim-quickrun",
 		requires = { { "lambdalisue/vim-quickrun-neovim-job" } },
@@ -103,6 +115,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- fuzzy finder
 	use({
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.0",
@@ -128,6 +141,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- 最近開いたファイル
 	use({
 		"nvim-telescope/telescope-frecency.nvim",
 		requires = { "kkharji/sqlite.lua" },
@@ -138,6 +152,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- ファイラ
 	use({
 		"nvim-telescope/telescope-file-browser.nvim",
 		config = function()
@@ -147,6 +162,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- ハイライト
 	use("sheerun/vim-polyglot")
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -157,6 +173,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- ステータスライン
 	use({
 		"nvim-lualine/lualine.nvim",
 		config = function()
@@ -189,6 +206,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- gitの変更を表示
 	use({
 		"lewis6991/gitsigns.nvim",
 		config = function()
@@ -196,6 +214,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- LSP
 	use({
 		"neovim/nvim-lspconfig",
 		config = function()
@@ -235,6 +254,8 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
+
+	-- lsp の進捗表示(右下のやつ)
 	use({
 		"j-hui/fidget.nvim",
 		config = function()
@@ -242,6 +263,15 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- LSP の diagnostics の表示を見やすく
+	use({
+		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+		config = function()
+			require("lsp_lines").setup()
+		end,
+	})
+
+	-- stylua などを lsp としてラップ
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
 		config = function()
@@ -262,6 +292,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- 補完
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
