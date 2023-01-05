@@ -266,7 +266,4 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
-
-	-- use 'dense-analysis/ale'
-	-- filer
 end)
