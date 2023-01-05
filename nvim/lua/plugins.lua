@@ -75,6 +75,15 @@ return require("packer").startup(function(use)
 	use("rust-lang/rust.vim")
 
 	use({
+		"klen/nvim-config-local",
+		config = function()
+			require("config-local").setup({
+				config_files = { "local.init.lua" },
+			})
+		end,
+	})
+
+	use({
 		"thinca/vim-quickrun",
 		requires = { { "lambdalisue/vim-quickrun-neovim-job" } },
 		setup = function()
