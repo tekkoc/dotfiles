@@ -234,7 +234,7 @@ return require("packer").startup(function(use)
 		config = function()
 			local lspconfig = require("lspconfig")
 			require("mason-lspconfig").setup({
-				ensure_installed = { "sumneko_lua", "rust_analyzer" },
+				ensure_installed = { "sumneko_lua", "rust_analyzer", "tsserver" },
 			})
 			require("mason-lspconfig").setup_handlers({
 				function(server)
@@ -287,6 +287,7 @@ return require("packer").startup(function(use)
 			null_ls.setup({
 				sources = {
 					null_ls.builtins.formatting.stylua,
+					null_ls.builtins.formatting.prettier,
 				},
 			})
 		end,
