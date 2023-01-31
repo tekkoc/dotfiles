@@ -94,27 +94,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- プログラム実行
-	use({
-		"thinca/vim-quickrun",
-		requires = { { "lambdalisue/vim-quickrun-neovim-job" } },
-		setup = function()
-			vim.g.quickrun_config = {
-				["_"] = {
-					["runner"] = "neovim_job",
-					["outputter/buffer/opener"] = "new",
-					["outputter/buffer/close_on_empty"] = 1,
-				},
-				["rust"] = {
-					["exec"] = "cargo run",
-				},
-			}
-
-			vim.keymap.set("n", "<leader>r", "<Nop>")
-			vim.keymap.set("n", "<leader>rr", ":QuickRun<CR>", { silent = true })
-		end,
-	})
-
 	-- fuzzy finder
 	use({
 		"nvim-telescope/telescope.nvim",
