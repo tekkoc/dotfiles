@@ -8,6 +8,10 @@ vim.keymap.set("n", ":", ";")
 vim.keymap.set({ "v", "i", "c" }, "<C-l>", "<ESC>")
 vim.keymap.set("n", "<C-l>", ":nohlsearch<CR>", { silent = true })
 
+-- terminal でも同じマッピングで normal モードに
+vim.keymap.set("t", "<C-l>", "<C-\\><C-n>")
+vim.keymap.set("t", "<ESC>", "<C-\\><C-n>")
+
 -- 移動
 vim.keymap.set({ "n", "v" }, "J", "10j")
 vim.keymap.set({ "n", "v" }, "K", "10k")
@@ -46,6 +50,9 @@ vim.keymap.set("n", "sn", "gt")
 vim.keymap.set("n", "sp", "gT")
 vim.keymap.set("n", "sN", ":tabmove +1<CR>", { silent = true })
 vim.keymap.set("n", "sP", ":tabmove -1<CR>", { silent = true })
+
+-- 分割しつつ terminal を起動
+vim.keymap.set("n", "sT", ":sp<CR>:terminal<CR>i", { silent = true })
 
 -- 編集支援系
 vim.keymap.set("n", "<CR>", "o<ESC>")
