@@ -272,6 +272,13 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	use({
+		"github/copilot.vim",
+		config = function()
+			vim.g.copilot_autostart = 1
+		end,
+	})
+
 	-- 補完
 	use({
 		"hrsh7th/nvim-cmp",
