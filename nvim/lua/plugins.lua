@@ -1,110 +1,94 @@
--- plugins.lua を更新したときに packer に読み込ませる
-vim.api.nvim_create_augroup("packer_user_config", {})
-vim.api.nvim_create_autocmd("BufWritePost", {
-	group = "packer_user_config",
-	pattern = { "plugins.lua" },
-	callback = function()
-		vim.cmd("source " .. vim.fn.expand("%"))
-		vim.cmd("PackerCompile")
-		vim.cmd("PackerInstall")
-		vim.cmd("PackerClean")
-	end,
-})
-
-vim.cmd([[packadd packer.nvim]])
-
-return require("packer").startup(function(use)
-	use("wbthomason/packer.nvim")
-
+return {
 	-- テーマ
-	use({
+	{
 		"EdenEast/nightfox.nvim",
 		config = function()
 			vim.cmd("colorscheme duskfox")
 		end,
-	})
+	},
 
 	-- .git があるディレクトリをカレントディレクトリに
-	use("mattn/vim-findroot")
+	"mattn/vim-findroot",
 
 	-- 括弧自動入力
-	use("jiangmiao/auto-pairs")
+	"jiangmiao/auto-pairs",
 
 	-- textobj系
-	use("kana/vim-textobj-user")
-	use("kana/vim-textobj-entire") -- ファイル全体
-	use("kana/vim-textobj-indent")
-	use("kana/vim-textobj-line")
+	"kana/vim-textobj-user",
+	"kana/vim-textobj-entire", -- ファイル全体
+	"kana/vim-textobj-indent",
+	"kana/vim-textobj-line",
 
 	-- operator系
-	use("kana/vim-operator-user")
-	use({
+	"kana/vim-operator-user",
+	{
 		"kana/vim-operator-replace",
-		setup = function()
-			vim.keymap.set("v", "p", "<Plug>(operator-replace)")
-			vim.keymap.set("", "R", "<Plug>(operator-replace)")
-		end,
-	})
-	use({
+		keys = {
+			{ "p", "<Plug>(operator-replace)", mode = "v" },
+			{ "R", "<Plug>(operator-replace)", mode = "" },
+		},
+	},
+	{
 		"tyru/operator-camelize.vim",
-		setup = function()
-			vim.keymap.set("", "<leader>c", "<Plug>(operator-camelize)")
-			vim.keymap.set("", "<leader>C", "<Plug>(operator-decamelize)")
-		end,
-	})
+		keys = {
+			{ "<leader>c", "<Plug>(operator-camelize)", mode = "" },
+			{ "<leader>C", "<Plug>(operator-decamelize)", mode = "" },
+		},
+	},
 
 	-- コメントアウト
-	use({
+	{
 		"tpope/vim-commentary",
-		setup = function()
-			vim.keymap.set("n", "CC", "gcl", { remap = true })
-			vim.keymap.set("", "C", "gc", { remap = true })
-		end,
-	})
+		keys = {
+			{ "CC", "gcl", mode = "n", remap = true },
+			{ "C", "gc", mode = "" },
+		},
+	},
 
 	-- コマンド補完
-	use({
+	{
 		"thinca/vim-ambicmd",
-		setup = function()
-			vim.keymap.set("c", "<space>", [[ambicmd#expand("\<Space>")]], { expr = true })
-			vim.keymap.set("c", "<CR>", [[ambicmd#expand("\<CR>")]], { expr = true })
-		end,
-	})
+		keys = {
+			{ "<space>", [[ambicmd#expand("\<Space>")]], mode = "c", expr = true },
+			{ "<CR>", [[ambicmd#expand("\<CR>")]], mode = "c", expr = true },
+		},
+	},
 
 	-- insertモードのときに色を変える
-	use("cohama/vim-insert-linenr")
+	"cohama/vim-insert-linenr",
 
 	-- url をブラウザで開く
-	use({
+	{
 		"tyru/open-browser.vim",
-		config = function()
-			vim.keymap.set("n", "<leader>o", "<Plug>(openbrowser-open)", { silent = true })
-		end,
-	})
+		keys = {
+			{ "<leader>o", "<Plug>(openbrowser-open)", mode = "n", silent = true },
+		},
+	},
 
-	use("rust-lang/rust.vim")
+	"rust-lang/rust.vim",
 
 	-- プロジェクト別の init.lua を書けるように
-	use({
+	{
 		"klen/nvim-config-local",
 		config = function()
 			require("config-local").setup({
 				config_files = { "local.init.lua" },
 			})
 		end,
-	})
+	},
 
 	-- fuzzy finder
-	use({
+	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.0",
-		requires = { { "nvim-lua/plenary.nvim" } },
+		dependencies = { "nvim-lua/plenary.nvim" },
+		keys = {
+			{ "<leader>uf", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+			{ "<leader>ub", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+			{ "<leader>uh", "<cmd>Telescope help_tags<cr>", desc = "Help tags" },
+			{ "<leader>ug", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
+		},
 		config = function()
-			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<leader>uf", builtin.find_files)
-			vim.keymap.set("n", "<leader>ub", builtin.buffers)
-			vim.keymap.set("n", "<leader>uh", builtin.help_tags)
-			vim.keymap.set("n", "<leader>ug", builtin.live_grep)
 			require("telescope").setup({
 				defaults = {
 					mappings = {
@@ -118,42 +102,45 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
-	})
+	},
 
 	-- 最近開いたファイル
-	use({
+	{
 		"nvim-telescope/telescope-frecency.nvim",
-		requires = { "kkharji/sqlite.lua" },
+		dependencies = { "kkharji/sqlite.lua" },
+		keys = {
+			{ "<leader>um", "<cmd>Telescope frecency<cr>", desc = "Frecency" },
+		},
 		config = function()
 			require("telescope").load_extension("frecency")
-
-			vim.keymap.set("n", "<leader>um", require("telescope").extensions.frecency.frecency)
 		end,
-	})
+	},
 
 	-- ファイラ
-	use({
+	{
 		"nvim-telescope/telescope-file-browser.nvim",
+		keys = {
+			{ "<leader>uF", ":Telescope file_browser<CR>", noremap = true },
+		},
 		config = function()
 			require("telescope").load_extension("file_browser")
-
-			vim.keymap.set("n", "<leader>uF", ":Telescope file_browser<CR>", { noremap = true })
 		end,
-	})
+	},
 
 	-- ハイライト
-	use("sheerun/vim-polyglot")
-	use({
+	"sheerun/vim-polyglot",
+	{
 		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = { "lua", "rust" },
 			})
 		end,
-	})
+	},
 
 	-- ステータスライン
-	use({
+	{
 		"nvim-lualine/lualine.nvim",
 		config = function()
 			require("lualine").setup({
@@ -183,44 +170,45 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
-	})
+	},
 
 	-- gitの変更を表示
-	use({
+	{
 		"lewis6991/gitsigns.nvim",
 		config = function()
 			require("gitsigns").setup()
 		end,
-	})
+	},
 
 	-- LSP
-	use({
+	{
 		"neovim/nvim-lspconfig",
-		config = function()
-			vim.keymap.set("n", "gk", "<cmd>lua vim.lsp.buf.hover()<CR>")
-			vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-			vim.keymap.set("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
-		end,
-	})
-	use({
+		keys = {
+			{ "gk", "<cmd>lua vim.lsp.buf.hover()<CR>", mode = "n" },
+			{ "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", mode = "n" },
+			{ "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", mode = "n" },
+		},
+	},
+	{
 		"williamboman/mason.nvim",
 		config = function()
 			require("mason").setup()
 		end,
-	})
-	use({
+	},
+	{
 		"williamboman/mason-lspconfig.nvim",
+		dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
 		config = function()
 			local lspconfig = require("lspconfig")
 			require("mason-lspconfig").setup({
-				ensure_installed = { "sumneko_lua", "rust_analyzer", "tsserver" },
+				ensure_installed = { "lua_ls", "rust_analyzer", "tsserver" },
 			})
 			require("mason-lspconfig").setup_handlers({
 				function(server)
 					lspconfig[server].setup({})
 				end,
-				["sumneko_lua"] = function()
-					lspconfig.sumneko_lua.setup({
+				["lua_ls"] = function()
+					lspconfig.lua_ls.setup({
 						settings = {
 							Lua = {
 								diagnostics = {
@@ -232,27 +220,28 @@ return require("packer").startup(function(use)
 				end,
 			})
 		end,
-	})
+	},
 
 	-- lsp の進捗表示(右下のやつ)
-	use({
+	{
 		"j-hui/fidget.nvim",
 		config = function()
 			require("fidget").setup({})
 		end,
-	})
+	},
 
 	-- LSP の diagnostics の表示を見やすく
-	use({
+	{
 		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
 		config = function()
 			require("lsp_lines").setup()
 		end,
-	})
+	},
 
 	-- stylua などを lsp としてラップ
-	use({
+	{
 		"jose-elias-alvarez/null-ls.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			vim.api.nvim_create_augroup("lsp_format", {})
 			vim.api.nvim_create_autocmd("BufWritePre", {
@@ -270,20 +259,12 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
-	})
-
-	-- copilot は一旦解約した
-	-- use({
-	-- 	"github/copilot.vim",
-	-- 	config = function()
-	-- 		vim.g.copilot_autostart = 1
-	-- 	end,
-	-- })
+	},
 
 	-- 補完
-	use({
+	{
 		"hrsh7th/nvim-cmp",
-		requires = {
+		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
@@ -307,5 +288,5 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
-	})
-end)
+	},
+}
