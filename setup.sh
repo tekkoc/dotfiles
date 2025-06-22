@@ -29,3 +29,8 @@ fi
 ln -sf `pwd`/hammerspoon.lua ~/.hammerspoon/init.lua
 
 ln -sf `pwd`/xvimrc ~/.xvimrc
+
+# Neovim Packer setup
+echo "Setting up Neovim plugins..."
+nvim --headless -c "PackerInstall" -c "PackerCompile" -c "PackerClean" -c "q"
+echo "Neovim plugin setup completed."
