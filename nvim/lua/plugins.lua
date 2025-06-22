@@ -15,14 +15,24 @@ return {
 
 	-- textobj系
 	"kana/vim-textobj-user",
-	"kana/vim-textobj-entire", -- ファイル全体
-	"kana/vim-textobj-indent",
-	"kana/vim-textobj-line",
+	{
+		"kana/vim-textobj-entire", -- ファイル全体
+		dependencies = { "kana/vim-textobj-user" },
+	},
+	{
+		"kana/vim-textobj-indent",
+		dependencies = { "kana/vim-textobj-user" },
+	},
+	{
+		"kana/vim-textobj-line",
+		dependencies = { "kana/vim-textobj-user" },
+	},
 
 	-- operator系
 	"kana/vim-operator-user",
 	{
 		"kana/vim-operator-replace",
+		dependencies = { "kana/vim-operator-user" },
 		keys = {
 			{ "p", "<Plug>(operator-replace)", mode = "v" },
 			{ "R", "<Plug>(operator-replace)", mode = "" },
@@ -30,6 +40,7 @@ return {
 	},
 	{
 		"tyru/operator-camelize.vim",
+		dependencies = { "kana/vim-operator-user" },
 		keys = {
 			{ "<leader>c", "<Plug>(operator-camelize)", mode = "" },
 			{ "<leader>C", "<Plug>(operator-decamelize)", mode = "" },
