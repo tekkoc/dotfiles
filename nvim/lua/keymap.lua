@@ -59,7 +59,7 @@ vim.keymap.set("n", "<CR>", "o<ESC>")
 vim.keymap.set("n", "<SPACE>d", "cc<ESC>")
 
 -- init.lua 関連
-local dotfiles_path = "~/dev/src/github.com/tekkoc/dotfiles"
+local dotfiles_path = "~/dev/dotfiles"
 local init_path = dotfiles_path .. "/nvim/init.lua"
 vim.keymap.set("n", "<SPACE>..", ":edit " .. init_path .. "<CR>", { silent = true })
 vim.keymap.set("n", "<SPACE>.r", function()
