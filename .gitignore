@@ -1,1 +1,10 @@
 nvim/plugin
+
+# Claude Code files
+.claude/
+
+# Temporary documentation
+neovim-config.md
+
+# Unknown nvim files
+nvim/nvim
