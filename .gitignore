@@ -1,0 +1,26 @@
+# =============================================================================
+# dotfiles .gitignore
+# =============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# バックアップファイル（install.sh が生成）
+*.backup.*
+
+# zsh コンパイル済みキャッシュ（各マシンで生成される）
+zsh/.zcompdump*
+zsh/.zsh_history
+
+# エディタ
+.idea/
+*.swp
+*.swo
+*~
+
+# ローカル専用の設定（Git に含めたくない秘密情報など）
+# このファイルを作って .zshrc.local から読み込む運用を推奨
+zsh/.zsh/local.zsh
+git/.gitconfig.local

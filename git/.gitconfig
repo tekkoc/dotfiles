@@ -1,0 +1,95 @@
+# .gitconfig — Git 設定
+# name / email は install.sh が git config --global で書き込む
+
+[core]
+  editor     = vim
+  autocrlf   = input          # macOS/Linux: LF に統一
+  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  pager      = delta          # git-delta をインストールしている場合
+
+[init]
+  defaultBranch = main
+
+[pull]
+  rebase = true               # pull = fetch + rebase（マージコミットを作らない）
+
+[fetch]
+  prune = true                # リモートで削除されたブランチを自動削除
+
+[push]
+  default        = current    # 同名のリモートブランチへ push
+  autoSetupRemote = true      # 初回 push で upstream を自動設定
+
+[rebase]
+  autoStash = true            # rebase 前に stash、終了後に pop
+
+[merge]
+  conflictstyle = diff3       # マージ競合に base を表示（解決しやすい）
+
+[diff]
+  algorithm      = histogram  # より賢い差分アルゴリズム
+  colorMoved     = default
+
+# =============================================================================
+# git-delta（差分をシンタックスハイライト付きで表示）
+# brew install git-delta でインストール
+# =============================================================================
+[delta]
+  navigate         = true     # n / N で差分間を移動
+  side-by-side     = false
+  line-numbers     = true
+  syntax-theme     = Catppuccin-mocha
+
+[interactive]
+  diffFilter = delta --color-only
+
+# =============================================================================
+# エイリアス
+# =============================================================================
+[alias]
+  # 基本
+  st  = status -sb
+  co  = checkout
+  br  = branch
+  ci  = commit
+  di  = diff
+  dc  = diff --cached
+
+  # ログ（グラフ付き）
+  lg  = log --oneline --graph --decorate
+  lga = log --oneline --graph --decorate --all
+
+  # 直前のコミットを修正（push 前限定）
+  amend = commit --amend --no-edit
+
+  # ブランチを一覧（最終更新日付き）
+  brs = branch -vv --sort=-committerdate
+
+  # リモートのデフォルトブランチへのリベース
+  sync = !git fetch origin && git rebase origin/$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)
+
+  # 作業ツリーを完全にリセット（危険：未コミットの変更は消える）
+  nuke = !git reset --hard HEAD && git clean -fd
+
+# =============================================================================
+# URL 書き換え（HTTPS → SSH）
+# =============================================================================
+# GitHub を SSH で使いたい場合はコメントを外す
+# [url "git@github.com:"]
+#   insteadOf = https://github.com/
+
+# =============================================================================
+# 色設定
+# =============================================================================
+[color]
+  ui     = auto
+  branch = auto
+  diff   = auto
+  status = auto
+
+# =============================================================================
+# ローカル設定（user.name / user.email など）
+# ~/.gitconfig.local はリポジトリ管理外（install.sh が生成）
+# =============================================================================
+[include]
+  path = ~/.gitconfig.local

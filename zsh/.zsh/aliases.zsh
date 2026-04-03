@@ -1,0 +1,67 @@
+# aliases.zsh — エイリアス定義
+
+# =============================================================================
+# ディレクトリ操作
+# =============================================================================
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias -- -='cd -'          # 直前のディレクトリへ戻る
+
+# =============================================================================
+# ls / eza
+# =============================================================================
+if command -v eza &>/dev/null; then
+  alias ls='eza --icons --group-directories-first'
+  alias ll='eza -l --icons --git --group-directories-first'
+  alias la='eza -la --icons --git --group-directories-first'
+  alias lt='eza --tree --icons --level=2'
+else
+  alias ls='ls -G'
+  alias ll='ls -lh'
+  alias la='ls -lah'
+fi
+
+# =============================================================================
+# Git
+# =============================================================================
+alias g='git'
+alias gs='git status -sb'
+alias ga='git add'
+alias gc='git commit'
+alias gco='git checkout'
+alias gb='git branch'
+alias gd='git diff'
+alias gl='git log --oneline --graph --decorate -20'
+alias gp='git push'
+alias gpl='git pull'
+
+# =============================================================================
+# tmux
+# =============================================================================
+alias t='tmux'
+alias ta='tmux attach -t'
+alias tl='tmux list-sessions'
+alias tn='tmux new-session -s'
+alias tk='tmux kill-session -t'
+
+# =============================================================================
+# Claude Code
+# =============================================================================
+alias cc='claude'
+
+# =============================================================================
+# その他
+# =============================================================================
+alias grep='grep --color=auto'
+alias cp='cp -i'            # 上書き前に確認
+alias mv='mv -i'
+alias rm='rm -i'
+alias mkdir='mkdir -p'
+alias df='df -h'
+alias du='du -sh'
+alias cat='bat --paging=never' 2>/dev/null || true  # bat があれば使う
+
+# dotfiles を素早く開く
+alias dotfiles='cd ~/dotfiles'
+alias zshrc='${EDITOR} ~/dotfiles/zsh/.zshrc && source ~/.zshrc'
