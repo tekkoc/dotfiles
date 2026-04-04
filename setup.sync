@@ -1,0 +1,9 @@
+# setup.md 同期履歴
+#
+# フォーマット: ISO 8601 (YYYY-MM-DDTHH:MM:SS+09:00)
+# 方向: dotfiles→other（このリポジトリ → 別環境）
+#       other→dotfiles（別環境 → このリポジトリ）
+
+last_synced: 2026-04-05T00:00:00+09:00
+direction: other→dotfiles
+note: ~/Downloads/setup.md を dotfiles/setup.md として初回配置

@@ -21,6 +21,8 @@ dotfiles/
 ├── ghostty/config          # Ghostty ターミナル設定
 ├── git/.gitconfig          # Git 設定
 ├── homebrew/Brewfile       # Homebrew パッケージ一覧
+├── setup.md                # 環境設定リファレンス（別環境再現用）
+├── setup.sync              # setup.md の最終同期時刻・方向を記録
 ├── tmux/.tmux.conf         # tmux 設定
 └── zsh/
     ├── .zshenv             # 全シェル共通の環境変数（最小限）
@@ -101,6 +103,32 @@ tmux source ~/.tmux.conf
 - `font-feature = -liga -dlig -calt` — CJK 入力時のリガチャ誤動作を回避するため無効化済み。削除しない
 - `macos-option-as-alt = left` — zsh の Alt キーバインドを有効にするため設定済み。削除しない
 
+### setup.md を更新する
+
+`setup.md` は**別環境での再現に必要な情報**をまとめたドキュメント。設定ファイルの有無にかかわらず、「この環境はこう動作する」という事実が変わったときに更新する。
+
+更新が必要な変更の例:
+- ツール・プラグインの追加・削除・設定変更
+- キーバインドやエイリアスの変更
+- OS の機能や外部サービスとの連携（通知、IME 設定など）
+- プロンプト・テーマの見た目の変更
+
+変更内容が `setup.md` に記載されている情報に影響するかを基準に判断する。設定ファイルの変更を伴わないものも対象。
+
+更新後は `setup.sync` も書き換える。
+
+`setup.sync` の更新フォーマット:
+
+```
+last_synced: YYYY-MM-DDTHH:MM:SS+09:00
+direction: dotfiles→other
+note: <変更内容を一言で>
+```
+
+`direction` の値:
+- `dotfiles→other`: このリポジトリの変更を setup.md に反映
+- `other→dotfiles`: 外部の setup.md をこのリポジトリに取り込み
+
 ### Brewfile を最新に更新する
 
 現在インストール済みのパッケージを Brewfile に反映：
@@ -125,7 +153,7 @@ brew bundle dump --force --file=~/dotfiles/homebrew/Brewfile
 | `git`      | `.gitconfig`                 |
 | `brew`     | `Brewfile`                   |
 | `install`  | `bin/install.sh`             |
-| `docs`     | `README.md` / `CLAUDE.md`    |
+| `docs`     | `README.md` / `CLAUDE.md` / `setup.md` / `setup.sync` |
 
 例：
 ```
