@@ -126,6 +126,34 @@ create_links() {
 }
 
 # -----------------------------------------------------------------------------
+# Ghostty テーマのインストール
+# -----------------------------------------------------------------------------
+setup_ghostty_theme() {
+  local themes_dir="$HOME/.config/ghostty/themes"
+  local theme_file="$themes_dir/catppuccin-mocha"
+  local theme_url="https://raw.githubusercontent.com/catppuccin/ghostty/main/themes/catppuccin-mocha.conf"
+
+  if [[ -f "$theme_file" ]]; then
+    info "Ghostty テーマはインストール済みです: $theme_file"
+    return
+  fi
+
+  if ! command -v curl &>/dev/null; then
+    warning "curl が見つかりません。Ghostty テーマをスキップします"
+    return
+  fi
+
+  info "Ghostty テーマ (catppuccin-mocha) をダウンロードします..."
+  mkdir -p "$themes_dir"
+  if curl -fsSL "$theme_url" -o "$theme_file"; then
+    success "Ghostty テーマをインストールしました: $theme_file"
+  else
+    warning "Ghostty テーマのダウンロードに失敗しました"
+    rm -f "$theme_file"
+  fi
+}
+
+# -----------------------------------------------------------------------------
 # Git のユーザー情報を設定（初回のみ）
 # -----------------------------------------------------------------------------
 setup_git_identity() {
@@ -198,6 +226,7 @@ main() {
   fi
 
   create_links
+  setup_ghostty_theme
   setup_git_identity
   setup_default_shell
 
