@@ -60,7 +60,9 @@ alias rm='rm -i'
 alias mkdir='mkdir -p'
 alias df='df -h'
 alias du='du -sh'
-alias cat='bat --paging=never' 2>/dev/null || true  # bat があれば使う
+if command -v bat &>/dev/null; then
+  alias cat='bat --paging=never'
+fi
 
 # dotfiles を素早く開く
 alias dotfiles='cd ~/dotfiles'
