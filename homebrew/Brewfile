@@ -8,7 +8,8 @@
 brew "git"           # Git 最新版（macOS 付属のものより新しい）
 brew "zsh"           # zsh 最新版
 brew "tmux"          # ターミナルマルチプレクサ
-brew "starship"      # クロスシェルプロンプト
+brew "starship"      # クロスシェルプロンプト（oh-my-posh に移行済み、互換性のため残す）
+brew "oh-my-posh"    # プロンプトエンジン（カスタムテーマ対応）
 
 # =============================================================================
 # CLI ツール（モダン Unix）
@@ -24,6 +25,10 @@ brew "ghq"           # Git リポジトリをディレクトリ構造で管理
 brew "jq"            # JSON プロセッサ
 brew "yq"            # YAML プロセッサ
 brew "mise"          # Node.js / Python / Ruby などのバージョン管理
+brew "lazygit"       # Git TUI（ステージング・リベース等をキーボード操作）
+brew "direnv"        # ディレクトリ別の環境変数を .envrc で自動ロード
+brew "zsh-autosuggestions"    # 入力履歴からゴーストテキストで補完候補を表示
+brew "zsh-syntax-highlighting" # 入力中のコマンドをリアルタイムで色分け
 
 # =============================================================================
 # Claude Code CLI
@@ -34,7 +39,8 @@ brew "mise"          # Node.js / Python / Ruby などのバージョン管理
 # =============================================================================
 # フォント（Nerd Font）
 # =============================================================================
-cask "font-jetbrains-mono-nerd-font"   # Ghostty の推薦フォント
+cask "font-jetbrains-mono-nerd-font"   # JetBrains Mono Nerd Font
+cask "font-udev-gothic-nf"             # UDEV Gothic NF（BIZ UD Gothic + JetBrains Mono 合成、日本語等幅・Nerd Font・リガチャ対応）
 # cask "font-hack-nerd-font"
 # cask "font-fira-code-nerd-font"
 
