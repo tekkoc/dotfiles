@@ -1,0 +1,79 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "os",
+          "style": "diamond",
+          "foreground": "#9FDAF4",
+          "background": "#011627",
+          "leading_diamond": "\ue0b6",
+          "trailing_diamond": "\ue0b0",
+          "template": " \uf179 "
+        },
+        {
+          "type": "path",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "#9FDAF4",
+          "background": "#011627",
+          "properties": {
+            "style": "agnoster_short",
+            "max_depth": 3,
+            "folder_separator_icon": "/"
+          },
+          "template": " {{ .Path }} "
+        },
+        {
+          "type": "git",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "foreground": "#011627",
+          "background": "#ADDB67",
+          "background_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}#EF9F27{{ end }}",
+            "{{ if and (gt .Behind 0) (eq .Ahead 0) }}#E24B4A{{ end }}",
+            "{{ if gt .Ahead 0 }}#ADDB67{{ end }}"
+          ],
+          "properties": {
+            "branch_icon": "\ue725 ",
+            "fetch_status": true
+          },
+          "template": " {{ .HEAD }}{{ if .Working.Changed }} *{{ end }}{{ if .Staging.Changed }} +{{ end }} "
+        },
+        {
+          "type": "executiontime",
+          "style": "plain",
+          "foreground": "#534AB7",
+          "background": "transparent",
+          "template": " \uf252 {{ .FormattedMs }} ",
+          "properties": {
+            "threshold": 2000,
+            "always_enabled": false
+          }
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "status",
+          "style": "plain",
+          "foreground": "#ADDB67",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}#E24B4A{{ end }}"
+          ],
+          "background": "transparent",
+          "template": "❯ "
+        }
+      ]
+    }
+  ],
+  "final_space": true
+}
