@@ -9,9 +9,6 @@
 macOS 上での個人開発環境を Git で管理する dotfiles です。
 主な構成要素は **Ghostty + zsh + tmux + Claude Code CLI** です。
 
-WSL 側の dotfiles とは**意図的に分離**しています。
-このリポジトリは macOS 専用であり、クロスプラットフォーム対応は行いません。
-
 ---
 
 ## ファイル構成
@@ -60,7 +57,6 @@ dotfiles/
 
 - `~/.zsh/local.zsh` への言及・編集（`.gitignore` 対象のプライベートファイル）
 - `git/.gitconfig` への `user.name` / `user.email` の直接書き込み（`install.sh` が対話的に設定する）
-- WSL 側の設定と共通化するリファクタリング（設計判断として分離している）
 - `Brewfile` への cask の追加（アプリ系は手動管理するため brew formula のみ提案する）
 
 ### 提案の作法
