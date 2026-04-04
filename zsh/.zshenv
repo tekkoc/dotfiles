@@ -12,6 +12,14 @@ export VISUAL="$EDITOR"
 export LANG="ja_JP.UTF-8"
 export LC_ALL="ja_JP.UTF-8"
 
+# Homebrew PATH（非ログインシェル・スクリプトでも有効にするためここで設定）
+# .zprofile でも同様に設定しているが、Claude Code 等の非ログインシェルのために必要
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # XDG Base Directory（ツールの設定を ~/.config/ に集約）
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
