@@ -24,7 +24,7 @@
   autoStash = true            # rebase 前に stash、終了後に pop
 
 [merge]
-  conflictstyle = diff3       # マージ競合に base を表示（解決しやすい）
+  conflictstyle = zdiff3      # マージ競合に base を表示（Git 2.35+ 推奨形式）
 
 [diff]
   algorithm      = histogram  # より賢い差分アルゴリズム
@@ -36,7 +36,7 @@
 # =============================================================================
 [delta]
   navigate         = true     # n / N で差分間を移動
-  side-by-side     = false
+  side-by-side     = true
   line-numbers     = true
   syntax-theme     = Catppuccin-mocha
 
@@ -53,6 +53,7 @@
   br  = branch
   ci  = commit
   di  = diff
+  df  = diff
   dc  = diff --cached
 
   # ログ（グラフ付き）
