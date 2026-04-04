@@ -48,7 +48,8 @@ alias tk='tmux kill-session -t'
 # =============================================================================
 # Claude Code
 # =============================================================================
-alias cc='claude'
+alias c='claude --enable-auto-mode'
+alias cr='claude --resume --enable-auto-mode'
 
 # =============================================================================
 # その他
@@ -63,6 +64,12 @@ alias du='du -sh'
 if command -v bat &>/dev/null; then
   alias cat='bat --paging=never'
 fi
+
+# lazygit
+alias lg='lazygit'
+
+# キーバインド・エイリアスのリファレンスを表示
+alias '?'='less ~/.zsh/reference.md 2>/dev/null || echo "~/.zsh/reference.md not found"'
 
 # dotfiles を素早く開く
 alias dotfiles='cd ~/dotfiles'
