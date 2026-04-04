@@ -16,6 +16,8 @@ macOS 上での個人開発環境を Git で管理する dotfiles です。
 ```
 dotfiles/
 ├── bin/install.sh          # セットアップスクリプト（冪等）
+├── claude/
+│   └── statusline.py       # Claude Code カスタムステータスライン
 ├── ghostty/config          # Ghostty ターミナル設定
 ├── git/.gitconfig          # Git 設定
 ├── homebrew/Brewfile       # Homebrew パッケージ一覧
@@ -25,22 +27,27 @@ dotfiles/
     ├── .zprofile           # ログインシェル用（Homebrew PATH 等）
     ├── .zshrc              # インタラクティブシェル設定
     └── .zsh/
-        ├── aliases.zsh     # エイリアス
-        ├── functions.zsh   # シェル関数
-        └── completions/    # 補完スクリプト置き場
+        ├── aliases.zsh         # エイリアス
+        ├── functions.zsh       # シェル関数
+        ├── ohmyposh-theme.json # Oh My Posh カスタムテーマ
+        ├── reference.md        # キーバインド・エイリアスのリファレンス（? で表示）
+        └── completions/        # 補完スクリプト置き場
 ```
 
 シンボリックリンク先（`install.sh` が作成）：
 
-| リポジトリ内のパス         | リンク先                          |
-|--------------------------|----------------------------------|
-| `zsh/.zshenv`            | `~/.zshenv`                      |
-| `zsh/.zprofile`          | `~/.zprofile`                    |
-| `zsh/.zshrc`             | `~/.zshrc`                       |
-| `zsh/.zsh/`              | `~/.zsh/`                        |
-| `tmux/.tmux.conf`        | `~/.tmux.conf`                   |
-| `ghostty/config`         | `~/.config/ghostty/config`       |
-| `git/.gitconfig`         | `~/.gitconfig`                   |
+| リポジトリ内のパス             | リンク先                          |
+|------------------------------|----------------------------------|
+| `zsh/.zshenv`                | `~/.zshenv`                      |
+| `zsh/.zprofile`              | `~/.zprofile`                    |
+| `zsh/.zshrc`                 | `~/.zshrc`                       |
+| `zsh/.zsh/`                  | `~/.zsh/`                        |
+| `tmux/.tmux.conf`            | `~/.tmux.conf`                   |
+| `ghostty/config`             | `~/.config/ghostty/config`       |
+| `git/.gitconfig`             | `~/.gitconfig`                   |
+| `claude/statusline.py`       | `~/.claude/statusline.py`        |
+
+`install.sh` はシンボリックリンク作成に加え、`~/.claude/settings.json` に statusLine と通知 hooks を自動設定する（既存設定とマージ）。
 
 ---
 
@@ -84,7 +91,7 @@ dotfiles/
 tmux source ~/.tmux.conf
 ```
 
-キーバインドを追加するときは既存の prefix との衝突を確認すること（現在の prefix は `Ctrl-a`）。
+キーバインドを追加するときは既存の prefix との衝突を確認すること（現在の prefix は `Ctrl-z`）。
 
 ### Ghostty の設定を変更する
 
@@ -134,8 +141,8 @@ ghostty: フォントサイズを 14 → 15 に変更
 - **OS**: macOS（Apple Silicon / Intel 両対応）
 - **シェル**: zsh（Homebrew 版）
 - **ターミナル**: Ghostty
-- **マルチプレクサ**: tmux（prefix: `Ctrl-a`）
-- **プロンプト**: Starship
+- **マルチプレクサ**: tmux（prefix: `Ctrl-z`）
+- **プロンプト**: Oh My Posh（カスタムテーマ: `zsh/.zsh/ohmyposh-theme.json`）
 - **パッケージ管理**: Homebrew
 - **バージョン管理**: mise（Node.js / Python 等）
 
