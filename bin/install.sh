@@ -75,16 +75,26 @@ check_macos() {
 # Homebrew のインストール
 # -----------------------------------------------------------------------------
 install_homebrew() {
+  # 非ログインシェルでは brew が PATH にないため、既定パスを先に確認して PATH に追加
+  if [[ -f "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -f "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+
   if command -v brew &>/dev/null; then
     info "Homebrew はインストール済みです"
     return
   fi
+
   info "Homebrew をインストールします..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  # Apple Silicon の場合 PATH を即時反映
+  # インストール後に PATH を反映
   if [[ -f "/opt/homebrew/bin/brew" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -f "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
   fi
   success "Homebrew のインストール完了"
 }
@@ -123,6 +133,112 @@ create_links() {
 
   # Git
   link "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
+
+  # Claude Code
+  link "$DOTFILES_DIR/claude/statusline.py" "$HOME/.claude/statusline.py"
+}
+
+# -----------------------------------------------------------------------------
+# Claude Code の設定（settings.json）
+# statusLine と通知 hooks を設定する。既存設定はマージして保持する。
+# -----------------------------------------------------------------------------
+setup_claude_settings() {
+  local settings_file="$HOME/.claude/settings.json"
+  local script="$DOTFILES_DIR/claude/statusline.py"
+
+  mkdir -p "$HOME/.claude"
+
+  if [[ "$CHECK_ONLY" == true ]]; then
+    if [[ -f "$settings_file" ]]; then
+      if python3 -c "
+import json
+with open('$settings_file') as f: c = json.load(f)
+assert 'statusLine' in c, 'statusLine missing'
+assert 'hooks' in c, 'hooks missing'
+" 2>/dev/null; then
+        success "$settings_file (statusLine + hooks 設定済み)"
+      else
+        warning "$settings_file (statusLine または hooks が未設定)"
+      fi
+    else
+      warning "$settings_file (ファイルなし)"
+    fi
+    return
+  fi
+
+  info "Claude Code settings.json を設定します..."
+
+  # Python で JSON をマージ（既存設定を保持しつつ必要なキーを追加）
+  python3 - "$settings_file" <<'PYEOF'
+import json
+import os
+import sys
+
+settings_path = sys.argv[1]
+
+# 既存設定を読み込む（なければ空）
+if os.path.exists(settings_path):
+    with open(settings_path) as f:
+        try:
+            config = json.load(f)
+        except Exception:
+            config = {}
+else:
+    config = {}
+
+changed = False
+
+# statusLine を追加（未設定の場合のみ）
+if "statusLine" not in config:
+    config["statusLine"] = {
+        "type": "command",
+        "command": "python3 ~/.claude/statusline.py",
+        "padding": 1
+    }
+    changed = True
+
+# hooks を追加（未設定の場合のみ）
+if "hooks" not in config:
+    config["hooks"] = {}
+
+hooks = config["hooks"]
+
+# Stop hook（タスク完了通知）
+if "Stop" not in hooks:
+    hooks["Stop"] = [
+        {
+            "hooks": [
+                {
+                    "type": "command",
+                    "command": "osascript -e 'display notification \"タスクが完了しました\" with title \"Claude Code\" sound name \"Glass\"'"
+                }
+            ]
+        }
+    ]
+    changed = True
+
+# Notification hook（入力待ち通知）
+if "Notification" not in hooks:
+    hooks["Notification"] = [
+        {
+            "hooks": [
+                {
+                    "type": "command",
+                    "command": "osascript -e 'display notification \"入力を待っています\" with title \"Claude Code\" sound name \"Ping\"'"
+                }
+            ]
+        }
+    ]
+    changed = True
+
+if changed:
+    os.makedirs(os.path.dirname(settings_path), exist_ok=True)
+    with open(settings_path, "w") as f:
+        json.dump(config, f, indent=2, ensure_ascii=False)
+    print(f"  [OK]    settings.json を更新しました: {settings_path}")
+else:
+    print(f"  [INFO]  settings.json は設定済みです（変更なし）")
+PYEOF
 }
 
 # -----------------------------------------------------------------------------
@@ -187,8 +303,9 @@ setup_default_shell() {
   local zsh_path
   zsh_path="$(command -v zsh)"
 
-  if [[ "$SHELL" == "$zsh_path" ]]; then
-    info "デフォルトシェルはすでに zsh です"
+  # $SHELL のベース名が zsh なら（パスが異なっても）スキップ
+  if [[ "$(basename "$SHELL")" == "zsh" ]]; then
+    info "デフォルトシェルはすでに zsh です ($SHELL)"
     return
   fi
 
@@ -197,8 +314,12 @@ setup_default_shell() {
     echo "$zsh_path" | sudo tee -a /etc/shells >/dev/null
   fi
 
-  chsh -s "$zsh_path"
-  success "デフォルトシェルを zsh ($zsh_path) に変更しました"
+  # chsh は対話的なパスワード入力を必要とするため、失敗してもスキップ
+  if chsh -s "$zsh_path" 2>/dev/null; then
+    success "デフォルトシェルを zsh ($zsh_path) に変更しました"
+  else
+    warning "デフォルトシェルの変更をスキップしました（手動で実行: chsh -s $zsh_path）"
+  fi
 }
 
 # -----------------------------------------------------------------------------
@@ -217,6 +338,9 @@ main() {
   if [[ "$CHECK_ONLY" == true ]]; then
     echo "--- リンク状態の確認 ---"
     create_links
+    echo ""
+    echo "--- Claude Code 設定の確認 ---"
+    setup_claude_settings
     exit 0
   fi
 
@@ -229,6 +353,7 @@ main() {
   setup_ghostty_theme
   setup_git_identity
   setup_default_shell
+  setup_claude_settings
 
   echo ""
   success "セットアップ完了！新しいターミナルを開いてください。"
