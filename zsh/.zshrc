@@ -44,12 +44,11 @@ zstyle ':completion:*:warnings' format '%F{red}-- no matches --%f'
 fpath=("$HOME/.zsh/completions" $fpath)
 
 # =============================================================================
-# キーバインド（vi ライク）
+# キーバインド（Emacs スタイル）
 # =============================================================================
-bindkey -v
-export KEYTIMEOUT=1         # vi モード切替を素早く
+bindkey -e
 
-# Ctrl+R で履歴検索（vi モードでも有効）
+# Ctrl+R で履歴インクリメンタル検索
 bindkey '^R' history-incremental-search-backward
 # Ctrl+P / Ctrl+N で前後の履歴
 bindkey '^P' up-line-or-history
@@ -60,6 +59,10 @@ bindkey '^[[F' end-of-line
 # Delete キー
 bindkey '^[[3~' delete-char
 
+# Ctrl+z を tmux prefix として使うため、サスペンドを Ctrl+] に移動
+# （tmux 内では Ctrl+z が prefix として機能するため、この設定は tmux 外のみ有効）
+stty susp '^]'
+
 # =============================================================================
 # Ghostty シェル統合
 # =============================================================================
@@ -69,10 +72,10 @@ if [[ -n "$GHOSTTY_RESOURCES_DIR" ]]; then
 fi
 
 # =============================================================================
-# プロンプト — Starship
+# プロンプト — Oh My Posh
 # =============================================================================
-if command -v starship &>/dev/null; then
-  eval "$(starship init zsh)"
+if command -v oh-my-posh &>/dev/null; then
+  eval "$(oh-my-posh init zsh --config ~/.zsh/ohmyposh-theme.json)"
 fi
 
 # =============================================================================
@@ -93,6 +96,11 @@ if command -v fzf &>/dev/null; then
   eval "$(fzf --zsh)"
 fi
 
+# direnv（ディレクトリ別の環境変数を .envrc で自動ロード）
+if command -v direnv &>/dev/null; then
+  eval "$(direnv hook zsh)"
+fi
+
 # =============================================================================
 # 追加設定ファイルを読み込む
 # =============================================================================
@@ -104,3 +112,23 @@ done
 # ローカル設定（Git 管理外・秘密情報・マシン固有の設定）
 # =============================================================================
 [[ -f "$HOME/.zsh/local.zsh" ]] && source "$HOME/.zsh/local.zsh"
+
+# =============================================================================
+# zsh プラグイン（for ループの後、ローカル設定の後に読み込む）
+# =============================================================================
+# zsh-autosuggestions: 入力履歴からゴーストテキストで補完候補を表示
+# HOMEBREW_PREFIX は .zprofile の brew shellenv で設定される（Apple Silicon / Intel 両対応）
+[[ -f "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
+  source "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+# zsh-syntax-highlighting: 入力中のコマンドをリアルタイムで色分け（必ず最後に）
+[[ -f "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
+  source "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+# =============================================================================
+# tmux 自動アタッチ（セッション "main" に接続、なければ作成）
+# ターミナル起動時に自動実行。tmux 内ではスキップ
+# =============================================================================
+if command -v tmux &>/dev/null && [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
+  tmux new-session -A -s main
+fi
