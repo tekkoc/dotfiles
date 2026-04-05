@@ -75,4 +75,4 @@ cask "karabiner-elements"  # キーボードカスタマイズ
 cask "google-japanese-ime" # Google 日本語入力
 cask "logi-options+"       # Logicool マウス・キーボード設定
 # cask "visual-studio-code"
-# cask "raycast"
+cask "raycast"             # ランチャー・ユーティリティ
