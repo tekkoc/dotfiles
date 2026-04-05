@@ -168,8 +168,10 @@ return {
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+      -- 全サーバー共通のキャパビリティ設定
+      vim.lsp.config("*", { capabilities = capabilities })
 
       -- 共通のキーマップ（LSP アタッチ時に設定）
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -186,8 +188,7 @@ return {
       })
 
       -- Lua（Neovim 設定ファイル向け）
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
+      vim.lsp.config("lua_ls", {
         settings = {
           Lua = {
             runtime = { version = "LuaJIT" },
@@ -197,8 +198,8 @@ return {
         },
       })
 
-      -- Rust
-      lspconfig.rust_analyzer.setup({ capabilities = capabilities })
+      -- サーバーを有効化
+      vim.lsp.enable({ "lua_ls", "rust_analyzer" })
     end,
   },
 
