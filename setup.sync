@@ -19,3 +19,7 @@ note: cask管理追加・colima/docker/go/php追加・npm/packages.txt で claud
 last_synced: 2026-04-05T16:25:06+09:00
 direction: dotfiles→other
 note: setup.md を設定ファイル実態に合わせて全面更新（Ghostty・tmuxプラグイン・zsh関数・エイリアス・Neovim LSP等）
+
+last_synced: 2026-04-05T16:39:26+09:00
+direction: dotfiles→other
+note: setup.md に [macOS] バッジを追加してmacOS固有設定を明示
