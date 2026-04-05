@@ -366,6 +366,32 @@ setup_ghostty_theme() {
 }
 
 # -----------------------------------------------------------------------------
+# Karabiner-Elements の設定をコピー（シンボリックリンクは使わない）
+# -----------------------------------------------------------------------------
+setup_karabiner() {
+  local src="$DOTFILES_DIR/karabiner/karabiner.json"
+  local dst="$HOME/.config/karabiner/karabiner.json"
+
+  if [[ ! -f "$src" ]]; then
+    warning "karabiner/karabiner.json が見つかりません: $src"
+    return
+  fi
+
+  if [[ "$CHECK_ONLY" == true ]]; then
+    if [[ -f "$dst" ]]; then
+      success "$dst (存在)"
+    else
+      warning "$dst (ファイルなし)"
+    fi
+    return
+  fi
+
+  mkdir -p "$(dirname "$dst")"
+  cp "$src" "$dst"
+  success "karabiner.json をコピーしました: $dst"
+}
+
+# -----------------------------------------------------------------------------
 # Git のユーザー情報を設定（初回のみ）
 # -----------------------------------------------------------------------------
 setup_git_identity() {
@@ -438,6 +464,9 @@ main() {
     echo "--- TPM の確認 ---"
     setup_tpm
     echo ""
+    echo "--- Karabiner 設定の確認 ---"
+    setup_karabiner
+    echo ""
     echo "--- Claude Code 設定の確認 ---"
     setup_claude_settings
     exit 0
@@ -452,6 +481,7 @@ main() {
   create_links
   setup_tpm
   setup_ghostty_theme
+  setup_karabiner
   setup_git_identity
   setup_default_shell
   setup_claude_settings
