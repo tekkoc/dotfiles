@@ -139,6 +139,9 @@ create_links() {
 
   # Neovim
   link "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
+
+  # lazygit
+  link "$DOTFILES_DIR/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
 }
 
 # -----------------------------------------------------------------------------
@@ -392,6 +395,71 @@ setup_karabiner() {
 }
 
 # -----------------------------------------------------------------------------
+# macOS システム設定（defaults write）
+# -----------------------------------------------------------------------------
+setup_macos_defaults() {
+  if [[ "$CHECK_ONLY" == true ]]; then
+    local tap
+    tap=$(defaults read com.apple.AppleMultitouchTrackpad Clicking 2>/dev/null || echo "0")
+    local autohide
+    autohide=$(defaults read com.apple.dock autohide 2>/dev/null || echo "0")
+    [[ "$tap" == "1" ]] && success "トラックパッド: タップでクリック 有効" || warning "トラックパッド: タップでクリック 未設定"
+    [[ "$autohide" == "1" ]] && success "Dock: 自動的に隠す 有効" || warning "Dock: 自動的に隠す 未設定"
+    return
+  fi
+
+  info "macOS デフォルト設定を適用します..."
+
+  # キーボード: キーリピートを有効にする（長押しで文字選択ポップアップを無効化）
+  defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+  # トラックパッド: タップでクリックを有効にする
+  defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+  defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+  defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+  # Dock: 自動的に隠す
+  defaults write com.apple.dock autohide -bool true
+  # Dock: サイズ
+  defaults write com.apple.dock tilesize -int 57
+  # Dock: 最近使ったアプリを表示しない
+  defaults write com.apple.dock show-recents -bool false
+
+  # Finder: パスバーを表示
+  defaults write com.apple.finder ShowPathbar -bool true
+
+  # 設定を反映
+  killall Dock 2>/dev/null || true
+
+  success "macOS デフォルト設定を適用しました"
+}
+
+# -----------------------------------------------------------------------------
+# Amethyst の設定をコピー（EncodedWindowManager は除外）
+# -----------------------------------------------------------------------------
+setup_amethyst() {
+  local src="$DOTFILES_DIR/amethyst/com.amethyst.Amethyst.plist"
+  local domain="com.amethyst.Amethyst"
+
+  if [[ ! -f "$src" ]]; then
+    warning "amethyst/com.amethyst.Amethyst.plist が見つかりません: $src"
+    return
+  fi
+
+  if [[ "$CHECK_ONLY" == true ]]; then
+    if defaults read "$domain" mod1 &>/dev/null; then
+      success "Amethyst: 設定インポート済み"
+    else
+      warning "Amethyst: 設定未インポート"
+    fi
+    return
+  fi
+
+  defaults import "$domain" "$src"
+  success "Amethyst 設定をインポートしました"
+}
+
+# -----------------------------------------------------------------------------
 # Git のユーザー情報を設定（初回のみ）
 # -----------------------------------------------------------------------------
 setup_git_identity() {
@@ -467,6 +535,12 @@ main() {
     echo "--- Karabiner 設定の確認 ---"
     setup_karabiner
     echo ""
+    echo "--- macOS デフォルト設定の確認 ---"
+    setup_macos_defaults
+    echo ""
+    echo "--- Amethyst 設定の確認 ---"
+    setup_amethyst
+    echo ""
     echo "--- Claude Code 設定の確認 ---"
     setup_claude_settings
     exit 0
@@ -482,6 +556,8 @@ main() {
   setup_tpm
   setup_ghostty_theme
   setup_karabiner
+  setup_macos_defaults
+  setup_amethyst
   setup_git_identity
   setup_default_shell
   setup_claude_settings
