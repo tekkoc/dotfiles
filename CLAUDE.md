@@ -193,3 +193,5 @@ ghostty: フォントサイズを 14 → 15 に変更
 | tmux 内で色がおかしい | `.tmux.conf` の `terminal-overrides` と `default-terminal` を確認 |
 | Ghostty で日本語入力がおかしい | `font-feature` の設定と Ghostty のバージョンを確認 |
 | `install.sh` でリンクが失敗する | `bash bin/install.sh --check` で状態確認 |
+
+過去に発生した詳細な問題と解決策は [`docs/troubleshooting.md`](docs/troubleshooting.md) を参照。

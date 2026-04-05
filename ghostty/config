@@ -43,7 +43,6 @@ shell-integration-features = cursor,sudo,title
 # キーバインド
 # =============================================================================
 keybind = cmd+enter=toggle_fullscreen
-keybind = shift+enter=text:\n
 keybind = cmd+comma=open_config
 
 # =============================================================================
