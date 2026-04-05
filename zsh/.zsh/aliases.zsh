@@ -44,6 +44,9 @@ alias ta='tmux attach -t'
 alias tl='tmux list-sessions'
 alias tn='tmux new-session -s'
 alias tk='tmux kill-session -t'
+# tmux-resurrect: セッションの手動保存・復元（キーバインドは無効化済み）
+alias tmux-save='tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/save.sh'
+alias tmux-restore='tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh'
 
 # =============================================================================
 # Claude Code

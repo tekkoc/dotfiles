@@ -8,7 +8,6 @@
 brew "git"           # Git 最新版（macOS 付属のものより新しい）
 brew "zsh"           # zsh 最新版
 brew "tmux"          # ターミナルマルチプレクサ
-brew "starship"      # クロスシェルプロンプト（oh-my-posh に移行済み、互換性のため残す）
 brew "oh-my-posh"    # プロンプトエンジン（カスタムテーマ対応）
 
 # =============================================================================
@@ -26,6 +25,8 @@ brew "jq"            # JSON プロセッサ
 brew "yq"            # YAML プロセッサ
 brew "mise"          # Node.js / Python / Ruby などのバージョン管理
 brew "lazygit"       # Git TUI（ステージング・リベース等をキーボード操作）
+brew "gh"            # GitHub CLI（PR 作成・issue 確認・レビューをターミナルで完結）
+brew "glow"          # ターミナルでの Markdown プレビュー
 brew "direnv"        # ディレクトリ別の環境変数を .envrc で自動ロード
 brew "zsh-autosuggestions"    # 入力履歴からゴーストテキストで補完候補を表示
 brew "zsh-syntax-highlighting" # 入力中のコマンドをリアルタイムで色分け

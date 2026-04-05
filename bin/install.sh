@@ -252,6 +252,37 @@ PYEOF
 }
 
 # -----------------------------------------------------------------------------
+# TPM (Tmux Plugin Manager) のインストール
+# -----------------------------------------------------------------------------
+setup_tpm() {
+  local tpm_dir="$HOME/.tmux/plugins/tpm"
+
+  if [[ "$CHECK_ONLY" == true ]]; then
+    if [[ -d "$tpm_dir" ]]; then
+      success "$tpm_dir (TPM インストール済み)"
+    else
+      warning "$tpm_dir (TPM 未インストール)"
+    fi
+    return
+  fi
+
+  if [[ -d "$tpm_dir" ]]; then
+    info "TPM はインストール済みです: $tpm_dir"
+    return
+  fi
+
+  if ! command -v git &>/dev/null; then
+    warning "git が見つかりません。TPM のインストールをスキップします"
+    return
+  fi
+
+  info "TPM (Tmux Plugin Manager) をインストールします..."
+  git clone https://github.com/tmux-plugins/tpm "$tpm_dir"
+  success "TPM をインストールしました: $tpm_dir"
+  info "tmux 内で prefix + I を押してプラグインをインストールしてください"
+}
+
+# -----------------------------------------------------------------------------
 # Ghostty テーマのインストール
 # -----------------------------------------------------------------------------
 setup_ghostty_theme() {
@@ -349,6 +380,9 @@ main() {
     echo "--- リンク状態の確認 ---"
     create_links
     echo ""
+    echo "--- TPM の確認 ---"
+    setup_tpm
+    echo ""
     echo "--- Claude Code 設定の確認 ---"
     setup_claude_settings
     exit 0
@@ -360,6 +394,7 @@ main() {
   fi
 
   create_links
+  setup_tpm
   setup_ghostty_theme
   setup_git_identity
   setup_default_shell
