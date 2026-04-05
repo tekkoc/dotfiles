@@ -191,6 +191,13 @@ else:
 
 changed = False
 
+# env.PATH を追加（未設定の場合のみ）
+if "env" not in config:
+    config["env"] = {}
+if "PATH" not in config["env"]:
+    config["env"]["PATH"] = "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    changed = True
+
 # statusLine を追加（未設定の場合のみ）
 if "statusLine" not in config:
     config["statusLine"] = {
