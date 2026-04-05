@@ -15,6 +15,10 @@ macOS 上での個人開発環境を Git で管理する dotfiles です。
 
 ```
 dotfiles/
+├── .claude/
+│   └── commands/
+│       ├── setup-sync.md   # /setup-sync スラッシュコマンド
+│       └── add-tool.md     # /add-tool スラッシュコマンド
 ├── bin/install.sh          # セットアップスクリプト（冪等）
 ├── claude/
 │   └── statusline.py       # Claude Code カスタムステータスライン
@@ -74,7 +78,6 @@ dotfiles/
 
 - `~/.zsh/local.zsh` への言及・編集（`.gitignore` 対象のプライベートファイル）
 - `git/.gitconfig` への `user.name` / `user.email` の直接書き込み（`install.sh` が対話的に設定する）
-- `Brewfile` への cask の追加（アプリ系は手動管理するため brew formula のみ提案する）
 
 ### 提案の作法
 
