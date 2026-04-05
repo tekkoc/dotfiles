@@ -214,6 +214,21 @@ if "hooks" not in config:
 
 hooks = config["hooks"]
 
+# PostToolUse hook（設定ファイル変更時の setup.md 更新リマインダー）
+if "PostToolUse" not in hooks:
+    hooks["PostToolUse"] = [
+        {
+            "matcher": "Edit|Write",
+            "hooks": [
+                {
+                    "type": "command",
+                    "command": "python3 -c \"\nimport json, sys, re\nd = json.load(sys.stdin)\nf = d.get('tool_input', {}).get('file_path', '')\npatterns = ['zshrc', 'zprofile', 'zshenv', r'aliases\\\\.zsh', r'functions\\\\.zsh', r'tmux\\\\.conf', 'ghostty/config', 'nvim/', 'Brewfile', r'packages\\\\.txt', r'\\\\.gitconfig']\nif f and any(re.search(p, f) for p in patterns):\n    print('[setup.md 更新チェック] ' + f + ' が変更されました。setup.md への反映が必要か確認し、必要なら /setup-sync を実行してください。')\n\""
+                }
+            ]
+        }
+    ]
+    changed = True
+
 # Stop hook（タスク完了通知）
 if "Stop" not in hooks:
     hooks["Stop"] = [
@@ -255,6 +270,46 @@ if changed:
 else:
     print(f"  [INFO]  settings.json は設定済みです（変更なし）")
 PYEOF
+}
+
+# -----------------------------------------------------------------------------
+# npm グローバルパッケージのインストール
+# -----------------------------------------------------------------------------
+install_npm_packages() {
+  local packages_file="$DOTFILES_DIR/npm/packages.txt"
+  if [[ ! -f "$packages_file" ]]; then
+    warning "npm/packages.txt が見つかりません: $packages_file"
+    return
+  fi
+
+  if ! command -v mise &>/dev/null; then
+    warning "mise が見つかりません。npm パッケージのインストールをスキップします"
+    return
+  fi
+
+  if ! mise exec node -- node --version &>/dev/null 2>&1; then
+    warning "mise で Node.js が見つかりません。npm パッケージのインストールをスキップします"
+    return
+  fi
+
+  # コメント・空行を除いたパッケージ名一覧（インラインコメントも除去）
+  local packages
+  packages=$(grep -v '^\s*#' "$packages_file" | grep -v '^\s*$' | awk '{print $1}')
+
+  if [[ -z "$packages" ]]; then
+    info "npm/packages.txt にパッケージが記載されていません"
+    return
+  fi
+
+  info "npm グローバルパッケージをインストールします..."
+  while IFS= read -r pkg; do
+    if mise exec node -- npm list -g --depth=0 "$pkg" &>/dev/null 2>&1; then
+      info "skip (already installed): $pkg"
+    else
+      mise exec node -- npm install -g "$pkg"
+      success "npm install -g $pkg"
+    fi
+  done <<< "$packages"
 }
 
 # -----------------------------------------------------------------------------
@@ -397,6 +452,7 @@ main() {
   if [[ "$LINK_ONLY" == false ]]; then
     install_homebrew
     install_brew_packages
+    install_npm_packages
   fi
 
   create_links

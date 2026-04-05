@@ -11,3 +11,11 @@ note: ~/Downloads/setup.md を dotfiles/setup.md として初回配置
 last_synced: 2026-04-05T12:00:00+09:00
 direction: dotfiles→other
 note: Neovim（lazy.nvim + Catppuccin Mocha）設定を追加
+
+last_synced: 2026-04-05T00:00:00+09:00
+direction: dotfiles→other
+note: cask管理追加・colima/docker/go/php追加・npm/packages.txt で claude-code を管理
+
+last_synced: 2026-04-05T16:25:06+09:00
+direction: dotfiles→other
+note: setup.md を設定ファイル実態に合わせて全面更新（Ghostty・tmuxプラグイン・zsh関数・エイリアス・Neovim LSP等）

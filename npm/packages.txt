@@ -1,0 +1,4 @@
+# npm グローバルパッケージ一覧
+# インストール: mise exec node -- npm install -g $(grep -v '^#' packages.txt | grep -v '^$' | tr '\n' ' ')
+
+@anthropic-ai/claude-code   # Claude Code CLI
