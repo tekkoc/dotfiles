@@ -7,7 +7,7 @@
 ## このリポジトリの目的
 
 macOS 上での個人開発環境を Git で管理する dotfiles です。
-主な構成要素は **Ghostty + zsh + tmux + Claude Code CLI** です。
+主な構成要素は **Ghostty + zsh + tmux + Neovim + Claude Code CLI** です。
 
 ---
 
@@ -21,6 +21,13 @@ dotfiles/
 ├── ghostty/config          # Ghostty ターミナル設定
 ├── git/.gitconfig          # Git 設定
 ├── homebrew/Brewfile       # Homebrew パッケージ一覧
+├── nvim/
+│   ├── init.lua            # Neovim エントリポイント（lazy.nvim ブートストラップ）
+│   └── lua/
+│       ├── core.lua        # 基本設定（表示・編集・検索）
+│       ├── keymap.lua      # キーマッピング（Leader=,）
+│       ├── commands.lua    # カスタムコマンド（:Inbox, :Temp）
+│       └── plugins.lua     # lazy.nvim プラグイン定義
 ├── setup.md                # 環境設定リファレンス（別環境再現用）
 ├── setup.sync              # setup.md の最終同期時刻・方向を記録
 ├── tmux/.tmux.conf         # tmux 設定
@@ -48,6 +55,7 @@ dotfiles/
 | `ghostty/config`             | `~/.config/ghostty/config`       |
 | `git/.gitconfig`             | `~/.gitconfig`                   |
 | `claude/statusline.py`       | `~/.claude/statusline.py`        |
+| `nvim/`                      | `~/.config/nvim/`                |
 
 `install.sh` はシンボリックリンク作成に加え、`~/.claude/settings.json` に statusLine と通知 hooks を自動設定する（既存設定とマージ）。
 

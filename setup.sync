@@ -7,3 +7,7 @@
 last_synced: 2026-04-05T00:00:00+09:00
 direction: other→dotfiles
 note: ~/Downloads/setup.md を dotfiles/setup.md として初回配置
+
+last_synced: 2026-04-05T12:00:00+09:00
+direction: dotfiles→other
+note: Neovim（lazy.nvim + Catppuccin Mocha）設定を追加

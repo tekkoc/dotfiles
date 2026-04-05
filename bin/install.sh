@@ -136,6 +136,9 @@ create_links() {
 
   # Claude Code
   link "$DOTFILES_DIR/claude/statusline.py" "$HOME/.claude/statusline.py"
+
+  # Neovim
+  link "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 }
 
 # -----------------------------------------------------------------------------
