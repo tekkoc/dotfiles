@@ -158,10 +158,11 @@ import json
 with open('$settings_file') as f: c = json.load(f)
 assert 'statusLine' in c, 'statusLine missing'
 assert 'hooks' in c, 'hooks missing'
+assert c.get('remoteControlAtStartup') == True, 'remoteControlAtStartup missing'
 " 2>/dev/null; then
-        success "$settings_file (statusLine + hooks 設定済み)"
+        success "$settings_file (statusLine + hooks + remoteControlAtStartup 設定済み)"
       else
-        warning "$settings_file (statusLine または hooks が未設定)"
+        warning "$settings_file (statusLine, hooks, または remoteControlAtStartup が未設定)"
       fi
     else
       warning "$settings_file (ファイルなし)"
@@ -239,6 +240,11 @@ if "Notification" not in hooks:
             ]
         }
     ]
+    changed = True
+
+# Remote Control を常に有効化
+if not config.get("remoteControlAtStartup"):
+    config["remoteControlAtStartup"] = True
     changed = True
 
 if changed:
