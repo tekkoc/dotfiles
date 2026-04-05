@@ -487,6 +487,24 @@ EOF
 }
 
 # -----------------------------------------------------------------------------
+# Neovim プラグインの同期（Lazy sync）
+# -----------------------------------------------------------------------------
+setup_nvim_plugins() {
+  if [[ "$CHECK_ONLY" == true ]]; then
+    return
+  fi
+
+  if ! command -v nvim &>/dev/null; then
+    warning "nvim が見つかりません。プラグインのセットアップをスキップします"
+    return
+  fi
+
+  info "Neovim プラグインを同期します（Lazy sync）..."
+  nvim --headless "+Lazy! sync" +qa 2>&1 | grep -v "^$" || true
+  success "Neovim プラグイン同期完了"
+}
+
+# -----------------------------------------------------------------------------
 # デフォルトシェルを zsh に設定
 # -----------------------------------------------------------------------------
 setup_default_shell() {
@@ -553,6 +571,7 @@ main() {
   fi
 
   create_links
+  setup_nvim_plugins
   setup_tpm
   setup_ghostty_theme
   setup_karabiner

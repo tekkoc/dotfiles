@@ -87,6 +87,9 @@ return {
 
       telescope.setup({
         defaults = {
+          preview = {
+            treesitter = false,
+          },
           mappings = {
             n = { ["<C-l>"] = "close" },
           },
@@ -103,16 +106,13 @@ return {
     end,
   },
 
-  -- シンタックスハイライト
-  { "sheerun/vim-polyglot" },
-
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "lua", "rust" },
+        ensure_installed = { "lua", "rust", "typescript", "tsx", "javascript" },
         highlight = { enable = true },
       })
     end,
