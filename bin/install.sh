@@ -109,7 +109,7 @@ install_brew_packages() {
     return
   fi
   info "Brewfile からパッケージをインストールします..."
-  brew bundle install --file="$brewfile"
+  brew bundle install --no-upgrade --verbose --file="$brewfile"
   success "Brewfile インストール完了"
 }
 
