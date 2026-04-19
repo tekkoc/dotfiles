@@ -2,6 +2,9 @@
 
 ## 2026-04-19
 
+- `ssh()` ラッパー関数を追加: SSH 接続中に Ghostty 背景色をネイビー（`#0f1f35`）に変更、切断後は catppuccin-mocha の背景色（`#1e1e2e`）へ復元。`BatchMode=yes` はスキップ [macOS]
+- tmux ステータスバーに SSH インジケーターを追加（`SSH` を赤字表示）
+- `.zshrc`: SSH セッション内の tmux 起動時に `SSH_CONNECTION` をグローバル環境変数として設定
 - `/pull` スラッシュコマンドを追加（`origin/main` を `pull --rebase` で取り込み、変更サマリー表示・コンフリクト時は手動操作手順を強調表示）
 - `t` エイリアス（`tmux`）を関数化（引数あり→セッション attach/作成、引数なし→セッション一覧）
 - tmux のターミナル起動時自動アタッチ機能を削除
