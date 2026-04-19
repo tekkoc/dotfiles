@@ -56,4 +56,4 @@ $ARGUMENTS
 brew install <ツール名>
 ```
 
-setup.md への反映が必要な変更であれば `/setup-sync` の実行も促してください。
+setup.md への反映が必要な変更であれば `/export` の実行も促してください。

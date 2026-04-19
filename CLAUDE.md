@@ -17,7 +17,8 @@ macOS 上での個人開発環境を Git で管理する dotfiles です。
 dotfiles/
 ├── .claude/
 │   └── commands/
-│       ├── setup-sync.md   # /setup-sync スラッシュコマンド
+│       ├── export.md       # /export スラッシュコマンド（dotfiles 実態から setup.md を更新）
+│       ├── setup-import.md # /setup-import スラッシュコマンド（他環境の設定を取り込む）
 │       └── add-tool.md     # /add-tool スラッシュコマンド
 ├── bin/install.sh          # セットアップスクリプト（冪等）
 ├── claude/
@@ -33,7 +34,7 @@ dotfiles/
 │       ├── commands.lua    # カスタムコマンド（:Inbox, :Temp）
 │       └── plugins.lua     # lazy.nvim プラグイン定義
 ├── setup.md                # 環境設定リファレンス（別環境再現用）
-├── setup.sync              # setup.md の最終同期時刻・方向を記録
+├── CHANGES.md              # 変更ログ（/setup-sync が自動追記）
 ├── tmux/.tmux.conf         # tmux 設定
 └── zsh/
     ├── .zshenv             # 全シェル共通の環境変数（最小限）
@@ -126,22 +127,9 @@ tmux source ~/.tmux.conf
 - プロンプト・テーマの見た目の変更
 - `Brewfile` / `npm/packages.txt` のパッケージ追加・削除
 
-**更新方法**: `/setup-sync <変更内容の概要>` スラッシュコマンドを実行する。
+**更新方法**: `/export` スラッシュコマンドを実行する。
+実態ファイル（Brewfile・plugins.lua・aliases.zsh 等）を読み込んで setup.md を自動更新し、CHANGES.md に変更ログを追記する。
 セッション終了前に必ず実行すること。更新をスキップする場合は理由を明示する。
-
-更新後は `setup.sync` も書き換える。
-
-`setup.sync` の更新フォーマット:
-
-```
-last_synced: YYYY-MM-DDTHH:MM:SS+09:00
-direction: dotfiles→other
-note: <変更内容を一言で>
-```
-
-`direction` の値:
-- `dotfiles→other`: このリポジトリの変更を setup.md に反映
-- `other→dotfiles`: 外部の setup.md をこのリポジトリに取り込み
 
 ### Brewfile を最新に更新する
 
@@ -167,7 +155,7 @@ brew bundle dump --force --file=~/dotfiles/homebrew/Brewfile
 | `git`      | `.gitconfig`                 |
 | `brew`     | `Brewfile`                   |
 | `install`  | `bin/install.sh`             |
-| `docs`     | `README.md` / `CLAUDE.md` / `setup.md` / `setup.sync` |
+| `docs`     | `README.md` / `CLAUDE.md` / `setup.md` / `CHANGES.md` |
 
 例：
 ```
