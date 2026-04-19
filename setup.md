@@ -2,7 +2,16 @@
 
 別環境での再現に必要な情報をまとめたドキュメント。「この環境はこう動作する」という事実ベースの記録。
 
-最終更新: 2026-04-19
+最終更新: 2026-04-19（凡例・環境バッジ追加）
+
+### 凡例
+
+| バッジ | 意味 |
+|------|------|
+| [macOS] | macOS 固有の機能・アプリに依存する設定 |
+| [Mac mini] | Mac mini（サーバー用途）でのみ必要な設定 |
+
+バッジなしは環境を問わず再現可能な設定。
 
 ---
 
@@ -12,16 +21,16 @@
 |--------------|-------------------------------------------|
 | OS           | macOS（Apple Silicon / Intel 両対応）          |
 | シェル         | zsh（Homebrew 版）                           |
-| ターミナル       | Ghostty                                   |
+| ターミナル       | Ghostty [macOS]                           |
 | マルチプレクサ    | tmux（prefix: `Ctrl-z`）                    |
 | エディタ        | Neovim（lazy.nvim によるプラグイン管理）             |
 | プロンプト       | Oh My Posh（カスタムテーマ: `ohmyposh-theme.json`） |
 | バージョン管理    | mise（Node.js / Python / Ruby 等）           |
 | パッケージ管理    | Homebrew                                  |
-| ランチャー       | Raycast                                   |
-| ウィンドウ管理    | Amethyst（タイル型）                            |
-| キーボード       | Karabiner-Elements                        |
-| IME          | Google 日本語入力                              |
+| ランチャー       | Raycast [macOS]                           |
+| ウィンドウ管理    | Amethyst（タイル型）[macOS]                     |
+| キーボード       | Karabiner-Elements [macOS]                |
+| IME          | Google 日本語入力 [macOS]                     |
 
 ---
 
@@ -81,7 +90,7 @@ nvim
 | zsh-autosuggestions    | 入力履歴からの補完候補表示          |
 | zsh-syntax-highlighting | コマンドのリアルタイム色分け       |
 
-### フォント（Nerd Font）
+### フォント（Nerd Font）[macOS]
 
 | パッケージ                     | 用途                                          |
 |------------------------------|----------------------------------------------|
@@ -92,15 +101,29 @@ nvim
 
 | パッケージ          | 用途                              |
 |-----------------|----------------------------------|
-| colima          | macOS 向け軽量コンテナランタイム     |
-| docker          | Docker CLI                       |
-| docker-compose  | Docker Compose                   |
+| colima          | macOS 向け軽量コンテナランタイム [Mac mini] |
+| docker          | Docker CLI [Mac mini]            |
+| docker-compose  | Docker Compose [Mac mini]        |
 | go              | Go プログラミング言語               |
 | php             | PHP                              |
 
-### アプリケーション（cask）
+### アプリケーション（cask）[macOS]
 
-ghostty, vivaldi, claude, discord, slack, notion, spotify, amethyst, karabiner-elements, google-japanese-ime, logi-options+, raycast, tailscale-app
+| パッケージ                | 用途                            |
+|------------------------|-------------------------------|
+| ghostty                | ターミナルエミュレータ              |
+| vivaldi                | ウェブブラウザ                    |
+| claude                 | Claude デスクトップアプリ          |
+| discord                | チャット・コミュニティ              |
+| slack                  | ビジネスチャット                   |
+| notion                 | ドキュメント・データベース           |
+| spotify                | 音楽ストリーミング                  |
+| amethyst               | タイル型ウィンドウマネージャ         |
+| karabiner-elements     | キーボードカスタマイズ              |
+| google-japanese-ime    | Google 日本語入力                 |
+| logi-options+          | Logicool マウス・キーボード設定     |
+| raycast                | ランチャー・ユーティリティ           |
+| tailscale-app          | VPN メッシュネットワーク（リモートアクセス）[Mac mini] |
 
 ---
 
@@ -121,7 +144,7 @@ ghostty, vivaldi, claude, discord, slack, notion, spotify, amethyst, karabiner-e
 
 ---
 
-## Ghostty
+## Ghostty [macOS]
 
 フォント・外観:
 
@@ -142,11 +165,11 @@ ghostty, vivaldi, claude, discord, slack, notion, spotify, amethyst, karabiner-e
 
 | キー             | 動作               |
 |----------------|------------------|
-| `Cmd+Enter`    | フルスクリーン切り替え |
-| `Cmd+,`        | 設定を開く          |
+| `Cmd+Enter`    | フルスクリーン切り替え [macOS] |
+| `Cmd+,`        | 設定を開く [macOS]   |
 
 その他:
-- `macos-option-as-alt = left` — 左 Alt を Meta キーとして使用（zsh キーバインド有効化）
+- `macos-option-as-alt = left` — 左 Alt を Meta キーとして使用（zsh キーバインド有効化）[macOS]
 - クリップボード読み書き: allow、末尾スペースのトリム: on
 - スクロールバック: 10000 行
 - デスクトップ通知: on
@@ -190,7 +213,7 @@ prefix: `Ctrl-z`
 |----------|---------------------|
 | `v`      | ビジュアル選択開始        |
 | `C-v`    | 矩形選択              |
-| `y`      | コピー（pbcopy に送る） |
+| `y`      | コピー（pbcopy に送る）[macOS] |
 | `Enter`  | コピー＆終了           |
 
 ### プラグイン（TPM）
