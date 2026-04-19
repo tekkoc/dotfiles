@@ -80,7 +80,7 @@ ssh() {
     command ssh "$@"
     return
   fi
-  printf '\033]11;#3d1f1f\007'
+  printf '\033]11;#0f1f35\007'
   command ssh "$@"
   printf '\033]11;#1e1e2e\007'
 }
