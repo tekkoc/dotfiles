@@ -270,6 +270,25 @@ PYEOF
 }
 
 # -----------------------------------------------------------------------------
+# mise で Node.js をセットアップ（npm パッケージのインストールに必要）
+# -----------------------------------------------------------------------------
+setup_mise_node() {
+  if ! command -v mise &>/dev/null; then
+    warning "mise が見つかりません。Node.js のセットアップをスキップします"
+    return
+  fi
+
+  if mise exec node -- node --version &>/dev/null 2>&1; then
+    info "mise Node.js はセットアップ済みです ($(mise exec node -- node --version 2>/dev/null))"
+    return
+  fi
+
+  info "mise で Node.js (LTS) をセットアップします..."
+  mise use -g node@lts
+  success "Node.js のセットアップ完了"
+}
+
+# -----------------------------------------------------------------------------
 # npm グローバルパッケージのインストール
 # -----------------------------------------------------------------------------
 install_npm_packages() {
@@ -567,6 +586,7 @@ main() {
   if [[ "$LINK_ONLY" == false ]]; then
     install_homebrew
     install_brew_packages
+    setup_mise_node
     install_npm_packages
   fi
 

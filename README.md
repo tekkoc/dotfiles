@@ -38,30 +38,61 @@ dotfiles/
 **Terminal.app**（macOS 標準）から実行します。Ghostty はまだ入っていないため、
 `install.sh` を実行してから Ghostty を起動してください。
 
+#### Step 1: 事前準備
+
 ```bash
-# 1. Xcode Command Line Tools をインストール（git に必要）
+# Xcode Command Line Tools をインストール（git に必要）
 xcode-select --install
 
-# 2. リポジトリをクローン
-git clone https://github.com/<your-name>/dotfiles.git ~/dev/dotfiles
+# SSH キーを生成して GitHub に登録
+ssh-keygen -t ed25519
+cat ~/.ssh/id_ed25519.pub
+# 表示された公開鍵を GitHub → Settings → SSH and GPG keys に登録
+```
 
-# 3. セットアップスクリプトを実行
+#### Step 2: install.sh を実行
+
+```bash
+# リポジトリをクローン（SSH）
+git clone git@github.com:<your-name>/dotfiles.git ~/dev/dotfiles
+
+# セットアップスクリプトを実行
 bash ~/dev/dotfiles/bin/install.sh
-
-# 4. 完了後に Ghostty を起動
 ```
 
 `install.sh` は以下を順に実行します：
 
 1. Homebrew のインストール（未インストールの場合）
-2. `Brewfile` からパッケージをインストール（Ghostty 含む）
-3. 各設定ファイルをホームディレクトリへシンボリックリンク
-4. Ghostty テーマ（catppuccin-mocha）をダウンロード
-5. Git ユーザー情報の設定（初回のみ対話入力）
-6. zsh をデフォルトシェルに設定
+2. `Brewfile` からパッケージをインストール（Ghostty・Slack・Discord など）
+3. mise で Node.js (LTS) をセットアップ
+4. npm グローバルパッケージのインストール（Claude Code CLI など）
+5. 各設定ファイルをホームディレクトリへシンボリックリンク
+6. Ghostty テーマ（catppuccin-mocha）をダウンロード
+7. macOS デフォルト設定を適用（Dock・Finder・キーリピートなど）
+8. Git ユーザー情報の設定（初回のみ対話入力）
+9. zsh をデフォルトシェルに設定
 
-> **注意:** 手順 3 でシンボリックリンクが作成された後、手順 4 でテーマが揃います。
-> `install.sh` を完了する前に Ghostty を起動するとテーマが見つからないエラーが出ます。
+> **注意:** `install.sh` を完了する前に Ghostty を起動するとテーマが見つからないエラーが出ます。
+
+#### Step 3: install.sh 完了後の手動作業
+
+```bash
+# Claude Code にログイン
+claude login
+
+# Tailscale にログイン（Mac mini などリモートアクセスが必要な場合）
+tailscale login
+```
+
+tmux を起動し、`prefix + I`（`Ctrl-z` → `I`）でプラグインをインストールしてください。
+
+**GUI での手動設定が必要なもの:**
+
+| アプリ | 作業内容 |
+|---|---|
+| Karabiner-Elements | システム設定 → プライバシーとセキュリティ → アクセシビリティで権限付与 |
+| Raycast | システム設定 → プライバシーとセキュリティ → アクセシビリティで権限付与 |
+| Google 日本語入力 | システム設定 → キーボード → 入力ソースでデフォルト IME に設定 |
 
 ### install.sh オプション
 
