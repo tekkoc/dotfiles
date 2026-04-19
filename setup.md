@@ -38,13 +38,13 @@
 
 ```bash
 # 1. リポジトリをクローン
-git clone <repo-url> ~/dotfiles
+mkdir -p ~/dev && git clone <repo-url> ~/dev/dotfiles
 
 # 2. install.sh を実行（シンボリックリンク作成 + Claude Code 設定）
-bash ~/dotfiles/bin/install.sh
+bash ~/dev/dotfiles/bin/install.sh
 
 # 3. Homebrew パッケージをインストール
-brew bundle install --file=~/dotfiles/homebrew/Brewfile
+brew bundle install --file=~/dev/dotfiles/homebrew/Brewfile
 
 # 4. TPM（tmux プラグインマネージャ）を初期化
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
