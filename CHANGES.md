@@ -2,6 +2,12 @@
 
 ## 2026-04-19
 
+- `/pull` スラッシュコマンドを追加（`origin/main` を `pull --rebase` で取り込み、変更サマリー表示・コンフリクト時は手動操作手順を強調表示）
+- `t` エイリアス（`tmux`）を関数化（引数あり→セッション attach/作成、引数なし→セッション一覧）
+- tmux のターミナル起動時自動アタッチ機能を削除
+- setup.md: `t` を関数表に移動、`tmux-new` 関数エントリを削除、tmux「自動アタッチ」セクションを削除
+- setup.md: `docker-completion` を Brewfile テーブルに追記 [Mac mini]
+
 - `mm` 関数を追加（Mac mini への SSH 接続、LAN 優先・圏外時は Tailscale 自動切替）[macOS]
 - setup.md に SSH config・macOS システム設定セクションを追加
   - `~/.ssh/config` の `home` / `home-ts` 設定を記載

@@ -19,7 +19,9 @@ dotfiles/
 │   └── commands/
 │       ├── export.md       # /export スラッシュコマンド（dotfiles 実態から setup.md を更新）
 │       ├── setup-import.md # /setup-import スラッシュコマンド（他環境の設定を取り込む）
-│       └── add-tool.md     # /add-tool スラッシュコマンド
+│       ├── add-tool.md     # /add-tool スラッシュコマンド
+│       ├── push.md         # /push スラッシュコマンド（main を origin/main へ push）
+│       └── pull.md         # /pull スラッシュコマンド（origin/main を pull rebase で取り込み）
 ├── bin/install.sh          # セットアップスクリプト（冪等）
 ├── claude/
 │   └── statusline.py       # Claude Code カスタムステータスライン
