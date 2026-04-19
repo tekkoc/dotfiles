@@ -124,11 +124,3 @@ done
 # zsh-syntax-highlighting: 入力中のコマンドをリアルタイムで色分け（必ず最後に）
 [[ -f "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
   source "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
-# =============================================================================
-# tmux 自動アタッチ（セッション "main" に接続、なければ作成）
-# ターミナル起動時に自動実行。tmux 内ではスキップ
-# =============================================================================
-if command -v tmux &>/dev/null && [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
-  tmux new-session -A -s main
-fi

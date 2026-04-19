@@ -39,7 +39,6 @@ alias gpl='git pull'
 # =============================================================================
 # tmux
 # =============================================================================
-alias t='tmux'
 alias ta='tmux attach -t'
 alias tl='tmux list-sessions'
 alias tn='tmux new-session -s'

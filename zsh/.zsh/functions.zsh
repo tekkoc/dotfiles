@@ -29,14 +29,18 @@ ghq-fzf() {
 bindkey -s '^g' 'ghq-fzf\n'
 
 # -----------------------------------------------------------------------------
-# tmux-new: プロジェクト名でセッションを作成（既存なら attach）
+# t: 引数あり→セッションに attach（なければ作成）、引数なし→セッション一覧
 # -----------------------------------------------------------------------------
-tmux-new() {
-  local name="${1:-main}"
-  if tmux has-session -t "$name" 2>/dev/null; then
-    tmux attach -t "$name"
+t() {
+  if [[ $# -eq 0 ]]; then
+    tmux list-sessions
   else
-    tmux new-session -s "$name"
+    local name="$1"
+    if tmux has-session -t "$name" 2>/dev/null; then
+      tmux attach -t "$name"
+    else
+      tmux new-session -s "$name"
+    fi
   fi
 }
 
