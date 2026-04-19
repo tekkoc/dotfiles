@@ -13,12 +13,23 @@ $ARGUMENTS
 以下のファイルをすべて読み込んで、現在の環境設定を把握する：
 
 - `homebrew/Brewfile`
+- `npm/packages.txt`
+- `nvim/init.lua`
 - `nvim/lua/plugins.lua`
-- `zsh/.zsh/aliases.zsh`
+- `nvim/lua/core.lua`
+- `nvim/lua/keymap.lua`
+- `nvim/lua/commands.lua`
+- `zsh/.zshenv`
+- `zsh/.zprofile`
 - `zsh/.zshrc`
+- `zsh/.zsh/aliases.zsh`
+- `zsh/.zsh/functions.zsh`
 - `tmux/.tmux.conf`
 - `ghostty/config`
 - `git/.gitconfig`
+- `amethyst/com.amethyst.Amethyst.plist`
+- `karabiner/karabiner.json`
+- `claude/statusline.py`
 
 ### 2. setup.md との差分確認
 
@@ -36,6 +47,15 @@ $ARGUMENTS
 - 削除・無効化した設定は除去する
 - 「この環境はこう動作する」という事実ベースで記述する（手順書ではなく状態の記録）
 - `最終更新` の日付を今日の日付に更新する
+
+**export してはいけない情報（setup.md に含めない）：**
+
+- 絶対パス（例: `/Users/tekkoc/...`）→ `~` や相対パスで表現するか省略する
+- ユーザー名・ホスト名・マシン固有の識別子
+- API キー・トークン・パスワード・秘密鍵などの秘匿情報
+- `~/.zsh/local.zsh` など `.gitignore` 対象のプライベートファイルの内容
+- IP アドレス・内部ネットワーク情報
+- 環境固有の値（マシン固有のフォント名、特定ディスプレイの解像度など）で他環境では無意味なもの
 
 ### 4. CHANGES.md への追記
 
