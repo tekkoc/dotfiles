@@ -2,6 +2,8 @@
 
 ## 2026-04-19
 
+- nvim-treesitter: v1.0 の API 変更に対応（`nvim-treesitter.configs` → `nvim-treesitter`、highlight はデフォルト有効化）
+
 - `ssh()` ラッパー関数を追加: SSH 接続中に Ghostty 背景色をネイビー（`#0f1f35`）に変更、切断後は catppuccin-mocha の背景色（`#1e1e2e`）へ復元。`BatchMode=yes` はスキップ [macOS]
 - tmux ステータスバーに SSH インジケーターを追加（`SSH` を赤字表示）
 - `.zshrc`: SSH セッション内の tmux 起動時に `SSH_CONNECTION` をグローバル環境変数として設定
