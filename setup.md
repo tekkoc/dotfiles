@@ -2,7 +2,7 @@
 
 別環境での再現に必要な情報をまとめたドキュメント。「この環境はこう動作する」という事実ベースの記録。
 
-最終更新: 2026-04-19（mm 関数追加）
+最終更新: 2026-04-19（SSH config・macOS システム設定セクション追加）
 
 ### 凡例
 
@@ -524,6 +524,70 @@ LSP キーマップ（アタッチ時に有効化）:
 | `:Inbox`     | `~/.inbox.md` を開く                  |
 | `:Temp [拡張子]` | `~/.vim_tmp/tmp.<拡張子>` を開く（デフォルト .txt） |
 | `:Format`    | conform.nvim で現在バッファをフォーマット |
+
+---
+
+## SSH 設定 [macOS]
+
+設定ファイル: `~/.ssh/config`（dotfiles 管理外・手動設定）
+
+```
+# 自宅 LAN（mDNS）
+Host home
+    HostName home.local
+    User tekkoc
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 60
+
+# Tailscale 経由（外出時）
+Host home-ts
+    HostName home.tail90e844.ts.net
+    User tekkoc
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 60
+```
+
+`mm` 関数はこの設定を前提とし、`home`（LAN）への接続を試みて失敗した場合に `home-ts`（Tailscale）へ自動切替する。
+
+---
+
+## macOS システム設定 [macOS]
+
+### IME（Google 日本語入力）
+
+1. **入力ソースに Google 日本語入力を追加**（システム設定 > キーボード > 入力ソース）
+2. **Ctrl+Space の IME 切替を解除**（システム設定 > キーボード > キーボードショートカット > 入力ソース）
+   - 「前の入力ソースを選択」「入力メニューの次のソースを選択」のチェックを外す
+   - Raycast のショートカットと競合するため
+
+### Karabiner-Elements [macOS]
+
+Kinesis キーボード向けのキー変更:
+
+| 変更前        | 変更後         | 目的                   |
+|-------------|-------------|----------------------|
+| CapsLock    | IME off（英数） | IME を確実に無効化        |
+| Right Command | IME on（かな） | IME を確実に有効化        |
+
+> **注意**: CapsLock を Ctrl にリマップする設定（macOS 標準の「修飾キー」設定）は **しないこと**。Karabiner と競合する。
+
+起動後、アクセシビリティ・入力監視の権限を付与すること。
+
+### Raycast [macOS]
+
+- 起動ショートカット: `Ctrl+Space`（デフォルトの `Cmd+Space` から変更）
+- Spotlight のショートカットは別キーに退避するか無効化する
+
+### Vivaldi [macOS]
+
+- デフォルトブラウザに設定
+- タブバーを左側に配置（設定 > 外観 > タブの位置: 左）
+- Vivaldi アカウントでログインしてブックマーク・設定を同期
+
+### Mac mini ロック画面 [Mac mini]
+
+- ロック画面のロック処理を無効化（システム設定 > ロック画面 > スリープまたはスクリーンセーバーの開始後にパスワードを要求 → 「しない」）
+- 常時稼働サーバーとして使うため、物理アクセスがない前提でロックを省略する
 
 ---
 
