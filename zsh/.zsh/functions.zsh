@@ -46,6 +46,17 @@ tmux-new() {
 path() { echo "$PATH" | tr ':' '\n' | nl; }
 
 # -----------------------------------------------------------------------------
+# mm: Mac mini に接続（LAN 優先、圏外なら Tailscale 経由）[macOS]
+# -----------------------------------------------------------------------------
+mm() {
+  if ssh -o ConnectTimeout=3 -o BatchMode=yes home true 2>/dev/null; then
+    ssh home -t "tmux attach || tmux new-session"
+  else
+    ssh home-ts -t "tmux attach || tmux new-session"
+  fi
+}
+
+# -----------------------------------------------------------------------------
 # extract: 各種アーカイブを展開
 # -----------------------------------------------------------------------------
 extract() {

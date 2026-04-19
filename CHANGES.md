@@ -2,6 +2,10 @@
 
 ## 2026-04-19
 
+- `mm` 関数を追加（Mac mini への SSH 接続、LAN 優先・圏外時は Tailscale 自動切替）[macOS]
+
+---
+
 - setup.md を新規作成（初回 export）
 - 全実態ファイルを読み込み、環境設定リファレンスとして記録
   - Ghostty / tmux / zsh / Neovim / Git / Claude Code の設定を網羅
