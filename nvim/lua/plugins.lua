@@ -77,10 +77,7 @@ return {
   -- ファジーファインダー (Telescope)
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope-file-browser.nvim",
-    },
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       local telescope = require("telescope")
       local builtin = require("telescope.builtin")
@@ -95,14 +92,38 @@ return {
           },
         },
       })
-      telescope.load_extension("file_browser")
 
       map("n", "<leader>uf", builtin.find_files, { noremap = true })
       map("n", "<leader>ub", builtin.buffers, { noremap = true })
       map("n", "<leader>uh", builtin.help_tags, { noremap = true })
       map("n", "<leader>ug", builtin.live_grep, { noremap = true })
       map("n", "<leader>um", builtin.oldfiles, { noremap = true })
-      map("n", "<leader>uF", telescope.extensions.file_browser.file_browser, { noremap = true })
+    end,
+  },
+
+  -- ファイラ（サイドバー型）
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      require("neo-tree").setup({
+        filesystem = {
+          follow_current_file = { enabled = true },
+          hijack_netrw_behavior = "open_current",
+        },
+        window = {
+          mappings = {
+            ["S"] = "open_split",
+            ["V"] = "open_vsplit",
+          },
+        },
+      })
+      map("n", "<leader>ff", ":Neotree toggle reveal<CR>", { noremap = true, silent = true })
     end,
   },
 

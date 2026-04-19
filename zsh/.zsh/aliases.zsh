@@ -71,6 +71,9 @@ fi
 # lazygit
 alias lg='lazygit'
 
+# pipes.sh スクリーンセーバー
+alias p='pipes.sh'
+
 # キーバインド・エイリアスのリファレンスを表示
 alias '?'='less ~/.zsh/reference.md 2>/dev/null || echo "~/.zsh/reference.md not found"'
 
