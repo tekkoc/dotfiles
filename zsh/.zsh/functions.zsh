@@ -53,10 +53,21 @@ path() { echo "$PATH" | tr ':' '\n' | nl; }
 # mm: Mac mini に接続（LAN 優先、圏外なら Tailscale 経由）[macOS]
 # -----------------------------------------------------------------------------
 mm() {
+  local host
   if ssh -o ConnectTimeout=3 -o BatchMode=yes home true 2>/dev/null; then
-    ssh home -t "tmux attach || tmux new-session"
+    host=home
   else
-    ssh home-ts -t "tmux attach || tmux new-session"
+    host=home-ts
+  fi
+
+  if [[ "$1" == "-t" ]]; then
+    if [[ -n "$2" ]]; then
+      ssh "$host" -t "tmux attach -t '$2' 2>/dev/null || tmux new-session -s '$2'"
+    else
+      ssh "$host" -t "tmux list-sessions"
+    fi
+  else
+    ssh "$host"
   fi
 }
 
