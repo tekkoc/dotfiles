@@ -278,7 +278,7 @@ setup_mise_node() {
     return
   fi
 
-  if mise exec node -- node --version &>/dev/null 2>&1; then
+  if mise ls node 2>/dev/null | grep -q "(current)"; then
     info "mise Node.js はセットアップ済みです ($(mise exec node -- node --version 2>/dev/null))"
     return
   fi
