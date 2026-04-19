@@ -93,7 +93,9 @@ return {
         },
       })
 
-      map("n", "<leader>uf", builtin.find_files, { noremap = true })
+      map("n", "<leader>uf", function()
+        builtin.find_files({ hidden = true, file_ignore_patterns = { "^%.git/objects/" } })
+      end, { noremap = true })
       map("n", "<leader>ub", builtin.buffers, { noremap = true })
       map("n", "<leader>uh", builtin.help_tags, { noremap = true })
       map("n", "<leader>ug", builtin.live_grep, { noremap = true })
@@ -115,6 +117,11 @@ return {
         filesystem = {
           follow_current_file = { enabled = true },
           hijack_netrw_behavior = "open_current",
+          filtered_items = {
+            visible = true,
+            hide_dotfiles = false,
+            hide_gitignored = true,
+          },
         },
         window = {
           mappings = {
