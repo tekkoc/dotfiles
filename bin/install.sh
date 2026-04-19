@@ -360,6 +360,36 @@ setup_tpm() {
 }
 
 # -----------------------------------------------------------------------------
+# Ghostty terminfo のインストール（xterm-ghostty が未登録の場合）
+# -----------------------------------------------------------------------------
+setup_ghostty_terminfo() {
+  local terminfo_src="$DOTFILES_DIR/ghostty/xterm-ghostty.terminfo"
+
+  if [[ "$CHECK_ONLY" == true ]]; then
+    if infocmp xterm-ghostty &>/dev/null; then
+      success "xterm-ghostty terminfo: インストール済み"
+    else
+      warning "xterm-ghostty terminfo: 未インストール"
+    fi
+    return
+  fi
+
+  if infocmp xterm-ghostty &>/dev/null; then
+    info "xterm-ghostty terminfo はインストール済みです"
+    return
+  fi
+
+  if [[ ! -f "$terminfo_src" ]]; then
+    warning "terminfo ファイルが見つかりません: $terminfo_src"
+    return
+  fi
+
+  info "xterm-ghostty terminfo をインストールします..."
+  tic -x "$terminfo_src"
+  success "xterm-ghostty terminfo をインストールしました"
+}
+
+# -----------------------------------------------------------------------------
 # Ghostty テーマのインストール
 # -----------------------------------------------------------------------------
 setup_ghostty_theme() {
@@ -566,6 +596,9 @@ main() {
     echo "--- リンク状態の確認 ---"
     create_links
     echo ""
+    echo "--- Ghostty terminfo の確認 ---"
+    setup_ghostty_terminfo
+    echo ""
     echo "--- TPM の確認 ---"
     setup_tpm
     echo ""
@@ -591,6 +624,7 @@ main() {
   fi
 
   create_links
+  setup_ghostty_terminfo
   setup_nvim_plugins
   setup_tpm
   setup_ghostty_theme

@@ -8,6 +8,10 @@
 - setup.md: `t` を関数表に移動、`tmux-new` 関数エントリを削除、tmux「自動アタッチ」セクションを削除
 - setup.md: `docker-completion` を Brewfile テーブルに追記 [Mac mini]
 
+- `ghostty/xterm-ghostty.terminfo` を追加・`install.sh` の `setup_ghostty_terminfo` で自動インストール（SSH 先で `xterm-ghostty` 未登録エラーを解消）
+- setup.md: SSH config の IdentityFile を `id_rsa` に修正、公開鍵登録コマンド（`ssh-copy-id`）を追記
+- setup.md: トラブルシューティングに `xterm-ghostty` terminfo エラーの対処を追記
+
 - `mm` 関数を追加（Mac mini への SSH 接続、LAN 優先・圏外時は Tailscale 自動切替）[macOS]
 - setup.md に SSH config・macOS システム設定セクションを追加
   - `~/.ssh/config` の `home` / `home-ts` 設定を記載

@@ -2,7 +2,7 @@
 
 別環境での再現に必要な情報をまとめたドキュメント。「この環境はこう動作する」という事実ベースの記録。
 
-最終更新: 2026-04-19（t 関数化・tmux 自動アタッチ削除・docker-completion 追加・/pull コマンド追加）
+最終更新: 2026-04-19（SSH 鍵認証・xterm-ghostty terminfo 自動インストール対応）
 
 ### 凡例
 
@@ -532,15 +532,21 @@ LSP キーマップ（アタッチ時に有効化）:
 Host home
     HostName home.local
     User tekkoc
-    IdentityFile ~/.ssh/id_ed25519
+    IdentityFile ~/.ssh/id_rsa
     ServerAliveInterval 60
 
 # Tailscale 経由（外出時）
 Host home-ts
     HostName home.tail90e844.ts.net
     User tekkoc
-    IdentityFile ~/.ssh/id_ed25519
+    IdentityFile ~/.ssh/id_rsa
     ServerAliveInterval 60
+```
+
+Mac mini へのパスワードなし接続には公開鍵の登録が必要:
+
+```bash
+ssh-copy-id -i ~/.ssh/id_rsa.pub home
 ```
 
 `mm` 関数はこの設定を前提とし、`home`（LAN）への接続を試みて失敗した場合に `home-ts`（Tailscale）へ自動切替する。
@@ -597,3 +603,4 @@ Kinesis キーボード向けのキー変更:
 | Ghostty で日本語入力がおかしい | `font-feature` の設定と Ghostty のバージョンを確認       |
 | `install.sh` でリンクが失敗   | `bash bin/install.sh --check` で状態確認              |
 | Neovim で LSP が動かない      | `:Mason` でサーバーの状態を確認                        |
+| SSH 接続時に `missing or unsuitable terminal: xterm-ghostty` | 接続先で `install.sh` を実行（`xterm-ghostty` terminfo を自動インストール） |
