@@ -24,3 +24,6 @@ zsh/.zsh_history
 # このファイルを作って .zshrc.local から読み込む運用を推奨
 zsh/.zsh/local.zsh
 git/.gitconfig.local
+
+# 環境固有設定（client / server 判定）
+.env

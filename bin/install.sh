@@ -136,6 +136,7 @@ create_links() {
 
   # Claude Code
   link "$DOTFILES_DIR/claude/statusline.py" "$HOME/.claude/statusline.py"
+  link "$DOTFILES_DIR/claude/hooks"         "$HOME/.claude/hooks"
 
   # Neovim
   link "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
@@ -266,6 +267,166 @@ if changed:
     print(f"  [OK]    settings.json を更新しました: {settings_path}")
 else:
     print(f"  [INFO]  settings.json は設定済みです（変更なし）")
+PYEOF
+}
+
+# -----------------------------------------------------------------------------
+# Discord bot のセットアップ（server のみ）
+# DISCORD_TOKEN / GUILD_ID / DISCORD_WEBHOOK_URL / DEFAULT_CWD を ~/.zsh/local.zsh で設定しておくこと
+# -----------------------------------------------------------------------------
+setup_discord_bot() {
+  local bot_dir="$HOME/dev/discord-claude-code-bot"
+  local plist_path="$HOME/Library/LaunchAgents/com.discord-claude-bot.plist"
+
+  if [[ "$CHECK_ONLY" == true ]]; then
+    if [[ -d "$bot_dir" ]]; then
+      success "$bot_dir (Discord bot インストール済み)"
+    else
+      warning "$bot_dir (Discord bot 未インストール)"
+    fi
+    if [[ -f "$plist_path" ]]; then
+      success "$plist_path (launchd plist 存在)"
+    else
+      warning "$plist_path (launchd plist なし)"
+    fi
+    return
+  fi
+
+  # 必須環境変数の確認
+  if [[ -z "$DISCORD_TOKEN" ]]; then
+    warning "DISCORD_TOKEN が未設定です。~/.zsh/local.zsh に設定してから再実行してください"
+    return
+  fi
+
+  # リポジトリのクローン
+  if [[ -d "$bot_dir" ]]; then
+    info "Discord bot はインストール済みです: $bot_dir"
+  else
+    mkdir -p "$HOME/dev"
+    info "Discord bot をクローンします..."
+    git clone https://github.com/fredchu/discord-claude-code-bot.git "$bot_dir"
+    success "クローン完了: $bot_dir"
+  fi
+
+  # .env の生成（既存は上書き）
+  info "Discord bot の .env を生成します..."
+  cat > "$bot_dir/.env" <<EOF
+DISCORD_TOKEN=${DISCORD_TOKEN}
+GUILD_ID=${GUILD_ID:-}
+DEFAULT_CWD=${DEFAULT_CWD:-$HOME/dev}
+CLAUDE_BIN=claude
+EOF
+  success ".env を生成しました: $bot_dir/.env"
+
+  # npm install
+  info "npm install を実行します..."
+  if command -v mise &>/dev/null && mise exec node -- node --version &>/dev/null 2>&1; then
+    (cd "$bot_dir" && mise exec node -- npm install)
+  else
+    (cd "$bot_dir" && npm install)
+  fi
+  success "npm install 完了"
+
+  # launchd plist の生成
+  info "launchd plist を生成します..."
+  mkdir -p "$HOME/Library/LaunchAgents"
+  cat > "$plist_path" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.discord-claude-bot</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-c</string>
+    <string>eval "\$(/opt/homebrew/bin/brew shellenv)" &amp;&amp; /opt/homebrew/bin/mise exec node -- npm start</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>${bot_dir}</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>${HOME}</string>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/tmp/discord-claude-bot.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/discord-claude-bot.error.log</string>
+</dict>
+</plist>
+EOF
+  success "launchd plist を生成しました: $plist_path"
+
+  # launchd に登録（既に登録済みなら再起動）
+  if launchctl list com.discord-claude-bot &>/dev/null 2>&1; then
+    info "Discord bot を再起動します..."
+    launchctl unload "$plist_path" 2>/dev/null || true
+  fi
+  launchctl load "$plist_path"
+  success "Discord bot を登録・起動しました"
+}
+
+# -----------------------------------------------------------------------------
+# Discord 完了通知を Claude Code の Stop hook に追加（server のみ）
+# 既存の macOS 通知 hook を保持したまま配列に追記する
+# -----------------------------------------------------------------------------
+setup_discord_hooks() {
+  local settings_file="$HOME/.claude/settings.json"
+
+  if [[ "$CHECK_ONLY" == true ]]; then
+    if python3 -c "
+import json
+with open('$settings_file') as f: c = json.load(f)
+stops = c.get('hooks', {}).get('Stop', [])
+cmds = [h.get('command','') for e in stops for h in e.get('hooks',[])]
+assert any('notify-discord' in cmd for cmd in cmds), 'Discord hook missing'
+" 2>/dev/null; then
+      success "Stop hook: Discord 通知設定済み"
+    else
+      warning "Stop hook: Discord 通知未設定"
+    fi
+    return
+  fi
+
+  info "Claude Code Stop hook に Discord 通知を追加します..."
+  python3 - "$settings_file" <<'PYEOF'
+import json, os, sys
+
+settings_path = sys.argv[1]
+if not os.path.exists(settings_path):
+    print("  [WARN]  settings.json が見つかりません。setup_claude_settings を先に実行してください")
+    sys.exit(0)
+
+with open(settings_path) as f:
+    config = json.load(f)
+
+hooks = config.setdefault("hooks", {})
+stops = hooks.setdefault("Stop", [])
+
+# すでに notify-discord.sh が登録されていればスキップ
+for entry in stops:
+    for h in entry.get("hooks", []):
+        if "notify-discord" in h.get("command", ""):
+            print("  [INFO]  Discord 通知 hook は設定済みです（変更なし）")
+            sys.exit(0)
+
+# 追記
+stops.append({
+    "hooks": [{
+        "type": "command",
+        "command": "~/.claude/hooks/notify-discord.sh"
+    }]
+})
+
+with open(settings_path, "w") as f:
+    json.dump(config, f, indent=2, ensure_ascii=False)
+print(f"  [OK]    Discord 通知 hook を追加しました: {settings_path}")
 PYEOF
 }
 
@@ -592,6 +753,33 @@ main() {
 
   check_macos
 
+  # ---------------------------------------------------------------------------
+  # 環境ロール判定（client / server）
+  # .env が存在すれば読み込み、未設定なら対話的に確認して .env に保存
+  # ---------------------------------------------------------------------------
+  local env_file="$DOTFILES_DIR/.env"
+  ROLE=""
+
+  if [[ -f "$env_file" ]]; then
+    # shellcheck source=/dev/null
+    source "$env_file"
+  fi
+
+  if [[ "$CHECK_ONLY" != true && -z "$ROLE" ]]; then
+    echo ""
+    echo "この環境のロールを選択してください:"
+    echo "  1) client  (Macbook 等)"
+    echo "  2) server  (Mac mini 等)"
+    read -rp "  選択 [1/2]: " role_choice
+    case "$role_choice" in
+      1) ROLE=client ;;
+      2) ROLE=server ;;
+      *) error "無効な選択です（1 または 2 を入力してください）" ;;
+    esac
+    echo "ROLE=$ROLE" > "$env_file"
+    success "ロールを保存しました: $env_file (ROLE=$ROLE)"
+  fi
+
   if [[ "$CHECK_ONLY" == true ]]; then
     echo "--- リンク状態の確認 ---"
     create_links
@@ -613,6 +801,14 @@ main() {
     echo ""
     echo "--- Claude Code 設定の確認 ---"
     setup_claude_settings
+    echo ""
+    echo "--- Discord セットアップの確認 (ROLE=${ROLE:-未設定}) ---"
+    if [[ "$ROLE" == "server" ]]; then
+      setup_discord_bot
+      setup_discord_hooks
+    else
+      info "ROLE=client のため Discord bot チェックをスキップします"
+    fi
     exit 0
   fi
 
@@ -634,6 +830,19 @@ main() {
   setup_git_identity
   setup_default_shell
   setup_claude_settings
+
+  # server のみ Discord bot と完了通知 hook をセットアップ
+  if [[ "$ROLE" == "server" ]]; then
+    echo ""
+    echo "--- Discord セットアップ (server) ---"
+    # ~/.zsh/local.zsh から Discord 環境変数を読み込む
+    if [[ -f "$HOME/.zsh/local.zsh" ]]; then
+      # shellcheck source=/dev/null
+      source "$HOME/.zsh/local.zsh"
+    fi
+    setup_discord_bot
+    setup_discord_hooks
+  fi
 
   echo ""
   success "セットアップ完了！新しいターミナルを開いてください。"
