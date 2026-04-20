@@ -56,6 +56,7 @@ brew "docker-compose"    # Docker Compose
 brew "docker-completion" # Docker シェル補完
 brew "go"                # Go プログラミング言語
 brew "php"               # PHP
+brew "python3"           # Python 3
 
 # =============================================================================
 # ネットワーク
