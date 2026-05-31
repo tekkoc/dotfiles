@@ -1,0 +1,33 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"\nimport json, sys, re\nd = json.load(sys.stdin)\nf = d.get('tool_input', {}).get('file_path', '')\npatterns = ['zshrc', 'zprofile', 'zshenv', r'aliases\\\\.zsh', r'functions\\\\.zsh', r'tmux\\\\.conf', 'ghostty/config', 'nvim/', 'Brewfile', r'packages\\\\.txt', r'\\\\.gitconfig', 'codex/', 'AGENTS.md', 'README.md', 'setup.md']\nif f and any(re.search(p, f) for p in patterns):\n    print('[設定更新チェック] ' + f + ' が変更されました。必要なら /export で setup.md を更新し、bash bin/install.sh --link-only を実行してください。')\n\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"タスクが完了しました\" with title \"Codex\" sound name \"Glass\"'"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/tekkoc/.codex/hooks/notify-discord.sh'"
+          }
+        ]
+      }
+    ]
+  }
+}

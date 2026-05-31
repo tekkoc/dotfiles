@@ -134,7 +134,11 @@ create_links() {
   # Git
   link "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
 
-  # Claude Code
+  # Codex
+  link "$DOTFILES_DIR/codex/hooks.json" "$HOME/.codex/hooks.json"
+  link "$DOTFILES_DIR/codex/hooks"      "$HOME/.codex/hooks"
+
+  # Claude Code (legacy)
   link "$DOTFILES_DIR/claude/statusline.py" "$HOME/.claude/statusline.py"
   link "$DOTFILES_DIR/claude/hooks"         "$HOME/.claude/hooks"
 
@@ -146,7 +150,33 @@ create_links() {
 }
 
 # -----------------------------------------------------------------------------
-# Claude Code の設定（settings.json）
+# Codex の hook 設定
+# hooks.json と通知スクリプトを ~/.codex にリンクする。
+# -----------------------------------------------------------------------------
+setup_codex_settings() {
+  local hooks_file="$HOME/.codex/hooks.json"
+  local notify_script="$HOME/.codex/hooks/notify-discord.sh"
+
+  if [[ "$CHECK_ONLY" == true ]]; then
+    if [[ -L "$hooks_file" && "$(readlink "$hooks_file")" == "$DOTFILES_DIR/codex/hooks.json" ]]; then
+      success "$hooks_file (リンク設定済み)"
+    else
+      warning "$hooks_file (リンク未設定)"
+    fi
+    if [[ -x "$notify_script" ]]; then
+      success "$notify_script (実行可能)"
+    else
+      warning "$notify_script (実行権限なし)"
+    fi
+    return
+  fi
+
+  chmod +x "$DOTFILES_DIR/codex/hooks/notify-discord.sh"
+  success "Codex hook 設定を確認しました"
+}
+
+# -----------------------------------------------------------------------------
+# Claude Code の設定（settings.json / legacy）
 # statusLine と通知 hooks を設定する。既存設定はマージして保持する。
 # -----------------------------------------------------------------------------
 setup_claude_settings() {
@@ -799,7 +829,10 @@ main() {
     echo "--- Amethyst 設定の確認 ---"
     setup_amethyst
     echo ""
-    echo "--- Claude Code 設定の確認 ---"
+    echo "--- Codex 設定の確認 ---"
+    setup_codex_settings
+    echo ""
+    echo "--- Claude Code 設定の確認 (legacy) ---"
     setup_claude_settings
     echo ""
     echo "--- Discord セットアップの確認 (ROLE=${ROLE:-未設定}) ---"
@@ -820,6 +853,16 @@ main() {
   fi
 
   create_links
+
+  if [[ "$LINK_ONLY" == true ]]; then
+    setup_ghostty_theme
+    setup_codex_settings
+    echo ""
+    success "リンク更新完了！設定を反映するには新しいターミナルを開いてください。"
+    echo ""
+    exit 0
+  fi
+
   setup_ghostty_terminfo
   setup_nvim_plugins
   setup_tpm
@@ -829,6 +872,7 @@ main() {
   setup_amethyst
   setup_git_identity
   setup_default_shell
+  setup_codex_settings
   setup_claude_settings
 
   # server のみ Discord bot と完了通知 hook をセットアップ

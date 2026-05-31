@@ -48,10 +48,12 @@ alias tmux-save='tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/save.sh'
 alias tmux-restore='tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh'
 
 # =============================================================================
-# Claude Code (macOS 限定: パーミッション確認をスキップ)
+# Codex / Claude Code
 # =============================================================================
-alias c='claude --dangerously-skip-permissions'
-alias cr='claude --resume --dangerously-skip-permissions'
+alias c='codex'
+alias cr='codex resume'
+alias cl='claude --dangerously-skip-permissions'        # legacy: Claude Code
+alias clr='claude --resume --dangerously-skip-permissions' # legacy: Claude Code
 
 # =============================================================================
 # その他
