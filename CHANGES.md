@@ -2,6 +2,7 @@
 
 ## 2026-06-01
 
+- Kinesis Advantage2 の左手親指 End / Right Command を Left Command に変更 [macOS]
 - Codex / Claude Code の Discord 完了通知 hook を削除
 - Discord bot セットアップ処理と関連ドキュメントを削除
 - Discord アプリ自体は Homebrew cask として管理継続

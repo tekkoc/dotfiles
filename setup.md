@@ -591,6 +591,7 @@ Kinesis キーボード向けのキー変更:
 |-------------|-------------|----------------------|
 | CapsLock    | IME off（英数） | IME を確実に無効化        |
 | Right Command | IME on（かな） | IME を確実に有効化        |
+| End / Right Command | Left Command | Kinesis Advantage2 の左手親指 End 位置を Cmd として使う |
 
 > **注意**: CapsLock を Ctrl にリマップする設定（macOS 標準の「修飾キー」設定）は **しないこと**。Karabiner と競合する。
 
