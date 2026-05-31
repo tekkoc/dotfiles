@@ -26,8 +26,6 @@ dotfiles/
 ├── bin/install.sh          # セットアップスクリプト（冪等）
 ├── codex/
 │   ├── hooks.json          # Codex hook 設定
-│   └── hooks/
-│       └── notify-discord.sh # Codex 完了通知
 ├── claude/
 │   ├── statusline.py       # Claude Code カスタムステータスライン（legacy）
 │   └── hooks/              # Claude Code hooks（legacy）
@@ -68,9 +66,7 @@ dotfiles/
 | `ghostty/config`             | `~/.config/ghostty/config`       |
 | `git/.gitconfig`             | `~/.gitconfig`                   |
 | `codex/hooks.json`           | `~/.codex/hooks.json`            |
-| `codex/hooks/`               | `~/.codex/hooks/`                |
 | `claude/statusline.py`       | `~/.claude/statusline.py`        |
-| `claude/hooks/`              | `~/.claude/hooks/`               |
 | `nvim/`                      | `~/.config/nvim/`                |
 | `lazygit/config.yml`         | `~/.config/lazygit/config.yml`   |
 

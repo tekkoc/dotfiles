@@ -141,9 +141,9 @@ nvim
 
 - Codex CLI: Homebrew cask `codex` で管理
 - Codex app: Homebrew cask `codex-app` で管理 [macOS]
-- Codex hooks: `codex/hooks.json` と `codex/hooks/` を `~/.codex/` にシンボリックリンク
+- Codex hooks: `codex/hooks.json` を `~/.codex/hooks.json` にシンボリックリンク
   - 設定ファイル更新時に `/export` と `bash bin/install.sh --link-only` の確認を促す
-  - Stop hook で macOS 通知と Discord 通知を実行（Webhook 未設定時はスキップ）[macOS]
+  - Stop hook で macOS 通知を実行 [macOS]
 - Claude Code: legacy として npm 経由でインストール（`npm/packages.txt` で管理）
 - Claude Code カスタムステータスライン: `claude/statusline.py`（`~/.claude/statusline.py` にシンボリックリンク）
   - カレントディレクトリ、Git ブランチ（変更状態付き）、worktree 名、モデル名を表示

@@ -1,10 +1,16 @@
 # CHANGES.md — 変更ログ
 
+## 2026-06-01
+
+- Codex / Claude Code の Discord 完了通知 hook を削除
+- Discord bot セットアップ処理と関連ドキュメントを削除
+- Discord アプリ自体は Homebrew cask として管理継続
+
 ## 2026-05-31
 
 - Codex app を Homebrew cask `codex-app` として管理対象に追加 [macOS]
 - Codex CLI を Homebrew cask `codex` として管理対象に追加
-- `codex/hooks.json` と `codex/hooks/notify-discord.sh` を追加し、`install.sh` で `~/.codex/` へリンクするように変更
+- `codex/hooks.json` を追加し、`install.sh` で `~/.codex/hooks.json` へリンクするように変更
 - `install.sh --link-only` をリンク更新・Ghostty テーマ確認・Codex hook 確認のみで終了する挙動に修正
 - zsh エイリアスを Codex 主体へ変更: `c=codex`, `cr=codex resume`
 - Claude Code 用エイリアスは legacy として `cl` / `clr` に退避

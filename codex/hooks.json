@@ -19,14 +19,6 @@
             "command": "osascript -e 'display notification \"タスクが完了しました\" with title \"Codex\" sound name \"Glass\"'"
           }
         ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "'/Users/tekkoc/.codex/hooks/notify-discord.sh'"
-          }
-        ]
       }
     ]
   }
