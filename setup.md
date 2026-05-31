@@ -2,7 +2,7 @@
 
 別環境での再現に必要な情報をまとめたドキュメント。「この環境はこう動作する」という事実ベースの記録。
 
-最終更新: 2026-05-31（Codex 移行・Codex app 管理追加）
+最終更新: 2026-06-01（Amethyst YAML 設定を追加）
 
 ### 凡例
 
@@ -134,6 +134,24 @@ nvim
 | logi-options+          | Logicool マウス・キーボード設定     |
 | raycast                | ランチャー・ユーティリティ           |
 | tailscale-app          | VPN メッシュネットワーク（リモートアクセス）[Mac mini] |
+
+---
+
+## Amethyst [macOS]
+
+- Homebrew cask `amethyst` でインストール
+- `amethyst/amethyst.yml` を `~/.config/amethyst/amethyst.yml` にシンボリックリンク
+- 有効レイアウト: `fullscreen`, `tall-right`
+- modifier:
+  - `mod1`: Option + Shift
+  - `mod2`: Option + Shift + Control
+- 主なショートカット:
+  - `mod1 + Space`: レイアウト切り替え
+  - `mod1 + h/l`: メインペインの縮小 / 拡大
+  - `mod1 + j/k`: フォーカス移動
+  - `mod2 + j/k`: ウィンドウ入れ替え
+  - `mod1 + t`: フロート切り替え
+  - `mod2 + t`: タイル全体の有効 / 無効切り替え
 
 ---
 

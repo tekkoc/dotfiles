@@ -145,6 +145,9 @@ create_links() {
 
   # lazygit
   link "$DOTFILES_DIR/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
+
+  # Amethyst
+  link "$DOTFILES_DIR/amethyst/amethyst.yml" "$HOME/.config/amethyst/amethyst.yml"
 }
 
 # -----------------------------------------------------------------------------
@@ -506,28 +509,26 @@ setup_macos_defaults() {
 }
 
 # -----------------------------------------------------------------------------
-# Amethyst の設定をコピー（EncodedWindowManager は除外）
+# Amethyst の YAML 設定を確認
 # -----------------------------------------------------------------------------
 setup_amethyst() {
-  local src="$DOTFILES_DIR/amethyst/com.amethyst.Amethyst.plist"
-  local domain="com.amethyst.Amethyst"
+  local config_file="$HOME/.config/amethyst/amethyst.yml"
 
-  if [[ ! -f "$src" ]]; then
-    warning "amethyst/com.amethyst.Amethyst.plist が見つかりません: $src"
+  if [[ ! -f "$DOTFILES_DIR/amethyst/amethyst.yml" ]]; then
+    warning "amethyst/amethyst.yml が見つかりません"
     return
   fi
 
   if [[ "$CHECK_ONLY" == true ]]; then
-    if defaults read "$domain" mod1 &>/dev/null; then
-      success "Amethyst: 設定インポート済み"
+    if [[ -L "$config_file" && "$(readlink "$config_file")" == "$DOTFILES_DIR/amethyst/amethyst.yml" ]]; then
+      success "Amethyst: YAML 設定リンク済み"
     else
-      warning "Amethyst: 設定未インポート"
+      warning "Amethyst: YAML 設定リンク未設定"
     fi
     return
   fi
 
-  defaults import "$domain" "$src"
-  success "Amethyst 設定をインポートしました"
+  success "Amethyst YAML 設定を確認しました"
 }
 
 # -----------------------------------------------------------------------------
