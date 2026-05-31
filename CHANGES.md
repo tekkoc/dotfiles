@@ -1,5 +1,15 @@
 # CHANGES.md — 変更ログ
 
+## 2026-05-31
+
+- Codex app を Homebrew cask `codex-app` として管理対象に追加 [macOS]
+- Codex CLI を Homebrew cask `codex` として管理対象に追加
+- `codex/hooks.json` と `codex/hooks/notify-discord.sh` を追加し、`install.sh` で `~/.codex/` へリンクするように変更
+- `install.sh --link-only` をリンク更新・Ghostty テーマ確認・Codex hook 確認のみで終了する挙動に修正
+- zsh エイリアスを Codex 主体へ変更: `c=codex`, `cr=codex resume`
+- Claude Code 用エイリアスは legacy として `cl` / `clr` に退避
+- README.md / setup.md / AGENTS.md を Codex 主体の記述に更新
+
 ## 2026-04-19
 
 - nvim-treesitter: v1.0 の API 変更に対応（`nvim-treesitter.configs` → `nvim-treesitter`、highlight はデフォルト有効化）
