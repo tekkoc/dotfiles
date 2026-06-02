@@ -2,6 +2,7 @@
 
 ## 2026-06-01
 
+- Google Chrome を Homebrew cask `google-chrome` として管理対象に追加 [macOS]
 - Kinesis Advantage2 の左手親指 End / Right Command を Left Command に変更 [macOS]
 - Amethyst 設定を YAML 化し、`amethyst/amethyst.yml` を `~/.config/amethyst/amethyst.yml` へリンクするように変更 [macOS]
 - Codex / Claude Code の Discord 完了通知 hook を削除
