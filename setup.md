@@ -2,7 +2,7 @@
 
 別環境での再現に必要な情報をまとめたドキュメント。「この環境はこう動作する」という事実ベースの記録。
 
-最終更新: 2026-06-01（Google Chrome を追加）
+最終更新: 2026-06-02（Amethyst の画面別ショートカットを YAML に反映）
 
 ### 凡例
 
@@ -93,6 +93,7 @@ nvim
 
 | パッケージ       | 用途                            |
 |----------------|---------------------------------|
+| chatgpt        | OpenAI ChatGPT デスクトップアプリ [macOS] |
 | codex          | OpenAI Codex CLI                |
 | codex-app      | OpenAI Codex デスクトップアプリ [macOS] |
 | @anthropic-ai/claude-code | Claude Code CLI（legacy / npm） |
@@ -123,6 +124,7 @@ nvim
 | ghostty                | ターミナルエミュレータ              |
 | vivaldi                | ウェブブラウザ                    |
 | google-chrome          | ウェブブラウザ                    |
+| chatgpt                | OpenAI ChatGPT デスクトップアプリ [macOS] |
 | codex-app              | OpenAI Codex デスクトップアプリ [macOS] |
 | claude                 | Claude デスクトップアプリ（legacy） |
 | discord                | チャット・コミュニティ              |
@@ -150,7 +152,9 @@ nvim
   - `mod1 + Space`: レイアウト切り替え
   - `mod1 + h/l`: メインペインの縮小 / 拡大
   - `mod1 + j/k`: フォーカス移動
+  - `mod1 + q/w/e/r/g`: 画面 4 / 1 / 2 / 3 / 5 へフォーカス移動
   - `mod2 + j/k`: ウィンドウ入れ替え
+  - `mod2 + q/w/e/r/g`: 画面 4 / 1 / 2 / 3 / 5 へウィンドウ移動
   - `mod1 + t`: フロート切り替え
   - `mod2 + t`: タイル全体の有効 / 無効切り替え
 
@@ -158,6 +162,7 @@ nvim
 
 ## Codex / Claude Code
 
+- ChatGPT app: Homebrew cask `chatgpt` で管理 [macOS]
 - Codex CLI: Homebrew cask `codex` で管理
 - Codex app: Homebrew cask `codex-app` で管理 [macOS]
 - Codex hooks: `codex/hooks.json` を `~/.codex/hooks.json` にシンボリックリンク
