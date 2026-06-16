@@ -77,6 +77,7 @@ cask "discord"             # チャット・コミュニティ
 cask "slack"               # ビジネスチャット
 cask "notion"              # ドキュメント・データベース
 cask "spotify"             # 音楽ストリーミング
+cask "steam"               # ゲーム配信プラットフォーム
 cask "amethyst"            # タイル型ウィンドウマネージャ
 cask "karabiner-elements"  # キーボードカスタマイズ
 cask "google-japanese-ime" # Google 日本語入力

@@ -1,5 +1,9 @@
 # CHANGES.md — 変更ログ
 
+## 2026-06-17
+
+- Steam クライアントを Homebrew cask `steam` として管理対象に追加 [macOS]
+
 ## 2026-06-02
 
 - Amethyst YAML 設定に、plist に残っていた画面別フォーカス / ウィンドウ移動ショートカットを反映 [macOS]
