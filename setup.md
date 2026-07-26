@@ -2,7 +2,7 @@
 
 別環境での再現に必要な情報をまとめたドキュメント。「この環境はこう動作する」という事実ベースの記録。
 
-最終更新: 2026-06-17（Steam クライアントを Homebrew 管理に追加）
+最終更新: 2026-07-26（CodexBar を追加）
 
 ### 凡例
 
@@ -96,6 +96,7 @@ nvim
 | chatgpt        | OpenAI ChatGPT デスクトップアプリ [macOS] |
 | codex          | OpenAI Codex CLI                |
 | codex-app      | OpenAI Codex デスクトップアプリ [macOS] |
+| codexbar       | Codex / Claude 使用量メニューバーモニター [macOS] |
 | @anthropic-ai/claude-code | Claude Code CLI（legacy / npm） |
 
 ### フォント（Nerd Font）[macOS]
@@ -126,6 +127,7 @@ nvim
 | google-chrome          | ウェブブラウザ                    |
 | chatgpt                | OpenAI ChatGPT デスクトップアプリ [macOS] |
 | codex-app              | OpenAI Codex デスクトップアプリ [macOS] |
+| codexbar               | Codex / Claude 使用量メニューバーモニター [macOS] |
 | claude                 | Claude デスクトップアプリ（legacy） |
 | discord                | チャット・コミュニティ              |
 | slack                  | ビジネスチャット                   |
@@ -166,6 +168,7 @@ nvim
 - ChatGPT app: Homebrew cask `chatgpt` で管理 [macOS]
 - Codex CLI: Homebrew cask `codex` で管理
 - Codex app: Homebrew cask `codex-app` で管理 [macOS]
+- CodexBar: Homebrew cask `codexbar` で管理。メニューバーと `codexbar usage` で Codex / Claude の使用量を確認 [macOS]
 - Codex hooks: `codex/hooks.json` を `~/.codex/hooks.json` にシンボリックリンク
   - 設定ファイル更新時に `/export` と `bash bin/install.sh --link-only` の確認を促す
   - Stop hook で macOS 通知を実行 [macOS]

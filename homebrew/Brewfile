@@ -38,6 +38,7 @@ brew "neovim"                 # テキストエディタ（Vim 互換、Lua 設�
 # AI coding agents
 # =============================================================================
 cask "codex"         # OpenAI Codex CLI
+cask "codexbar"      # Codex / Claude 使用量をメニューバーで監視
 # Claude Code CLI は legacy として npm/packages.txt で管理
 
 # =============================================================================

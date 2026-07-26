@@ -1,5 +1,9 @@
 # CHANGES.md — 変更ログ
 
+## 2026-07-26
+
+- CodexBar を Homebrew cask `codexbar` として管理対象に追加。Codex / Claude の使用量をメニューバーと `codexbar usage` で確認できるようにした [macOS]
+
 ## 2026-06-17
 
 - Steam クライアントを Homebrew cask `steam` として管理対象に追加 [macOS]
