@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gitコミット"
+  short_description: "タグ付き日本語コミット手順を標準化"
+  default_prompt: "$git-commit を使って、現在の Git 変更を簡潔な日本語メッセージでコミットしてください。"
